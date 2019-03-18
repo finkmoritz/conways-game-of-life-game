@@ -2,4 +2,5 @@
 <resources>
     <dimen name="title_size">20sp</dimen>
     <dimen name="title_margin">50sp</dimen>
+    <dimen name="footer_size">10sp</dimen>
 </resources>
