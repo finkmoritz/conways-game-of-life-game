@@ -9,4 +9,6 @@
     <string name="title1">Conway\'s Game of Life</string>
     <string name="title2">The Game</string>
     <string name="footer_text">Created by Moritz Fink</string>
+    <string name="back_text">Back</string>
+    <string name="play_text">Play</string>
 </resources>

@@ -5,15 +5,15 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 
-class MainActivity : AppCompatActivity() {
+class ConfigActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_config)
     }
 
-    fun startConfigActivity(view: View) {
-        val intent = Intent(this, ConfigActivity::class.java).apply {}
+    fun startMainActivity(view: View) {
+        val intent = Intent(this, MainActivity::class.java).apply {}
         startActivity(intent)
     }
 }
