@@ -5,10 +5,12 @@
         <item name="colorPrimaryDark">@android:color/background_dark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/colorPrimaryDark</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/colorAccent</item>
         <item name="android:colorBackground">@color/colorPrimaryDark</item>
         <item name="android:colorForeground">@color/colorAccent</item>
         <item name="android:textColorPrimaryInverse">@color/colorPrimary</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Colored</item>
     </style>
 
 </resources>

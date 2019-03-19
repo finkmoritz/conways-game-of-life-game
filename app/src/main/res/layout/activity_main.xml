@@ -20,7 +20,6 @@
             android:id="@+id/title_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"
             android:text="@string/title1"
             android:textAlignment="center"
             android:textAllCaps="false"
@@ -33,7 +32,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/title_margin"
-            android:fontFamily="monospace"
             android:text="@string/title2"
             android:textAlignment="center"
             android:textAllCaps="false"
@@ -43,27 +41,21 @@
 
         <Button
             android:id="@+id/startgame_button"
-            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"
             android:onClick="startConfigActivity"
             android:text="@string/startgame_text" />
 
         <Button
             android:id="@+id/tutorial_button"
-            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"
             android:text="@string/tutorial_text" />
 
         <Button
             android:id="@+id/settings_button"
-            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"
             android:text="@string/settings_text" />
 
     </LinearLayout>
@@ -79,7 +71,6 @@
             android:id="@+id/footer_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"
             android:text="@string/footer_text"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
