@@ -5,10 +5,11 @@
     <string name="startgame_text">Start Game</string>
     <string name="tutorial_text">Tutorial</string>
     <string name="settings_text">Settings</string>
-    <string name="title_text">Conway\'s Game of Life\\nThe Game</string>
     <string name="title1">Conway\'s Game of Life</string>
     <string name="title2">The Game</string>
     <string name="footer_text">Created by Moritz Fink</string>
     <string name="back_text">Back</string>
     <string name="play_text">Play</string>
+    <string name="rules_text">Rules</string>
+    <string name="cells_text">Cells</string>
 </resources>

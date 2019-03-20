@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="rules_array">
+        <item>Standard</item>
+        <item>Custom…</item>
+    </string-array>
+    <string-array name="cells_array">
+        <item>Triangular</item>
+        <item>Quadrangular</item>
+        <item>Hexagonal</item>
+    </string-array>
+</resources>

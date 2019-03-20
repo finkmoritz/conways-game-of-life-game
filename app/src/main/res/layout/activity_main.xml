@@ -17,7 +17,6 @@
         tools:context=".MainActivity">
 
         <TextView
-            android:id="@+id/title_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title1"
@@ -28,7 +27,6 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/title_text2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/title_margin"
@@ -40,20 +38,17 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/startgame_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="startConfigActivity"
             android:text="@string/startgame_text" />
 
         <Button
-            android:id="@+id/tutorial_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tutorial_text" />
 
         <Button
-            android:id="@+id/settings_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/settings_text" />
@@ -68,7 +63,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/footer_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/footer_text"
