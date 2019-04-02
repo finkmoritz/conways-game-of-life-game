@@ -2,7 +2,7 @@ package finkmoritz.conwaysgameoflifegame.board
 
 import finkmoritz.conwaysgameoflifegame.cell.Cell
 
-class TriangularBoard(var _cells : List<Cell>, val _width : Int, val _height : Int) : AbstractBoard(_cells,_width,_height) {
+class TriangularBoard(val _width : Int, val _height : Int) : AbstractBoard(_width,_height) {
 
     override fun getNeighbours(cell: Cell): List<Cell> {
         var neighbours = mutableListOf<Cell>()
@@ -27,5 +27,15 @@ class TriangularBoard(var _cells : List<Cell>, val _width : Int, val _height : I
         }
 
         return neighbours
+    }
+
+    override fun clone() : Board {
+        var newBoard = TriangularBoard(width(),height())
+        for(x in 0..width()-1) {
+            for(y in 0..height()-1) {
+                newBoard.setCellState(x,y,getCell(x,y).getState())
+            }
+        }
+        return newBoard
     }
 }

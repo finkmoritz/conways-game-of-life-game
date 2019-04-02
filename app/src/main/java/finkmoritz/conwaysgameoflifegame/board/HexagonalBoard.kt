@@ -2,11 +2,7 @@ package finkmoritz.conwaysgameoflifegame.board
 
 import finkmoritz.conwaysgameoflifegame.cell.Cell
 
-class HexagonalBoard(var cells : List<Cell>, val width : Int, val height : Int) : Board {
-
-    init {
-        assert(width*height + (width-1)*(height-1) == cells.size, { println("Number of cells (" + cells.size + ") does not equal w*h+(w-1)*(h-1) with w="+width+" and h="+height+" !") })
-    }
+class HexagonalBoard(val _width : Int, val _height : Int) : AbstractBoard(_width,_height) {
 
     override fun getAllCells(): List<Cell> = cells
 
@@ -35,5 +31,15 @@ class HexagonalBoard(var cells : List<Cell>, val width : Int, val height : Int) 
         }
 
         return neighbours
+    }
+
+    override fun clone() : Board {
+        var newBoard = HexagonalBoard(width(),height())
+        for(x in 0..width()-1) {
+            for(y in 0..height()-1) {
+                newBoard.setCellState(x,y,getCell(x,y).getState())
+            }
+        }
+        return newBoard
     }
 }
