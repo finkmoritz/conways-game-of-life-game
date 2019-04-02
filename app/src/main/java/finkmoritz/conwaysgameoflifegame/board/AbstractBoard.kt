@@ -1,7 +1,7 @@
 package finkmoritz.conwaysgameoflifegame.board
 
 import finkmoritz.conwaysgameoflifegame.cell.Cell
-import finkmoritz.conwaysgameoflifegame.cell.CellBE
+import finkmoritz.conwaysgameoflifegame.cell.SimpleCell
 import finkmoritz.conwaysgameoflifegame.rules.Rules
 
 abstract class AbstractBoard(protected val width : Int, protected val height : Int) : Board {
@@ -10,7 +10,7 @@ abstract class AbstractBoard(protected val width : Int, protected val height : I
 
     init {
         for(i in 0..(width*height-1)) {
-            cells.add(CellBE(Cell.State.VOID))
+            cells.add(SimpleCell(Cell.State.VOID))
         }
     }
 
