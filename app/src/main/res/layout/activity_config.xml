@@ -15,7 +15,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -23,7 +24,7 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -33,6 +34,7 @@
                         android:textColor="@color/colorAccent" />
 
                     <Spinner
+                        android:id="@+id/cells_spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -42,7 +44,7 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -52,10 +54,219 @@
                         android:textColor="@color/colorAccent" />
 
                     <Spinner
+                        android:id="@+id/rules_spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:entries="@array/rules_array"
+                        android:popupBackground="@color/colorAccent" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/table_spacing"
+                        android:text="@string/neighbours_text"
+                        android:textColor="@color/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/table_spacing"
+                        android:text="@string/result_text"
+                        android:textColor="@color/colorAccent" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/neighbours0_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/zero_text"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent" />
+
+                    <Spinner
+                        android:id="@+id/neighbours0_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/result_array"
+                        android:popupBackground="@color/colorAccent" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/neighbours1_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/one_text"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent" />
+
+                    <Spinner
+                        android:id="@+id/neighbours1_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/result_array"
+                        android:popupBackground="@color/colorAccent" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/neighbours2_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/two_text"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent" />
+
+                    <Spinner
+                        android:id="@+id/neighbours2_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/result_array"
+                        android:popupBackground="@color/colorAccent" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/neighbours3_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/three_text"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent" />
+
+                    <Spinner
+                        android:id="@+id/neighbours3_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/result_array"
+                        android:popupBackground="@color/colorAccent" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/neighbours4_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/four_text"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent" />
+
+                    <Spinner
+                        android:id="@+id/neighbours4_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/result_array"
+                        android:popupBackground="@color/colorAccent" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/neighbours5_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/five_text"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent" />
+
+                    <Spinner
+                        android:id="@+id/neighbours5_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/result_array"
+                        android:popupBackground="@color/colorAccent" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/neighbours6_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/six_text"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent" />
+
+                    <Spinner
+                        android:id="@+id/neighbours6_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/result_array"
+                        android:popupBackground="@color/colorAccent" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/neighbours7_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/seven_text"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent" />
+
+                    <Spinner
+                        android:id="@+id/neighbours7_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/result_array"
+                        android:popupBackground="@color/colorAccent" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/neighbours8_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/eight_text"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent" />
+
+                    <Spinner
+                        android:id="@+id/neighbours8_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/result_array"
                         android:popupBackground="@color/colorAccent" />
                 </TableRow>
 

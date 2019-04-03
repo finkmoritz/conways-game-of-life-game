@@ -9,4 +9,9 @@
         <item>Quadrangular</item>
         <item>Hexagonal</item>
     </string-array>
+    <string-array name="result_array">
+        <item>Die</item>
+        <item>Live</item>
+        <item>Persist</item>
+    </string-array>
 </resources>

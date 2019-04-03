@@ -2,13 +2,15 @@ package finkmoritz.conwaysgameoflifegame.rules
 
 import finkmoritz.conwaysgameoflifegame.cell.Cell
 
-class ConwayRules : Rules {
+open class ConwayRules : Rules {
 
     private var nbrToTransition = HashMap<Int,Cell.Transition>()
 
     override fun addTransition(nNeighbours: Int, transition: Cell.Transition) {
         nbrToTransition.put(nNeighbours,transition)
     }
+
+    override fun getTransition(nNeighbours: Int) = nbrToTransition.get(nNeighbours)
 
     override fun getNewState(nNeighbours: Int, oldState: Cell.State): Cell.State {
         val transition = nbrToTransition.get(nNeighbours)

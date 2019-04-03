@@ -23,4 +23,16 @@ interface Cell {
             setState(State.ALIVE)
         }
     }
+
+    fun transitionToString(transition: Transition) : String {
+        if(transition == Transition.PERSIST) {
+            return "persist"
+        } else if(transition == Transition.DIE) {
+            return "die"
+        } else if (transition == Transition.LIVE) {
+            return "live"
+        } else {
+            return ""
+        }
+    }
 }

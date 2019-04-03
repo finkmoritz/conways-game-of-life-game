@@ -12,4 +12,18 @@
     <string name="play_text">Play</string>
     <string name="rules_text">Rules</string>
     <string name="cells_text">Cells</string>
+    <string name="neighbours_text">Neighbours</string>
+    <string name="dead_text">Dead</string>
+    <string name="alive_text">Alive</string>
+    <string name="created_text">Created</string>
+    <string name="result_text">Result</string>
+    <string name="zero_text">0</string>
+    <string name="one_text">1</string>
+    <string name="two_text">2</string>
+    <string name="three_text">3</string>
+    <string name="four_text">4</string>
+    <string name="five_text">5</string>
+    <string name="six_text">6</string>
+    <string name="seven_text">7</string>
+    <string name="eight_text">8</string>
 </resources>
