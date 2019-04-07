@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Spinner
 import android.widget.TableRow
-import finkmoritz.conwaysgameoflifegame.config.OnRulesSelectedListener
+import finkmoritz.conwaysgameoflifegame.config.onCellsSelectedListener
 
 class ConfigActivity : AppCompatActivity() {
 
@@ -43,8 +43,7 @@ class ConfigActivity : AppCompatActivity() {
                 findViewById(R.id.neighbours7_spinner),
                 findViewById(R.id.neighbours8_spinner))
 
-        cellsSpinner.onItemSelectedListener = OnRulesSelectedListener(cellsSpinner, rulesSpinner, rows, spinners)
-        rulesSpinner.onItemSelectedListener = OnRulesSelectedListener(cellsSpinner, rulesSpinner, rows, spinners)
+        cellsSpinner.onItemSelectedListener = onCellsSelectedListener(cellsSpinner, rows, spinners)
     }
 
     fun startMainActivity(view: View) {

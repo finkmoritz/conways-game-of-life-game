@@ -10,10 +10,9 @@ import finkmoritz.conwaysgameoflifegame.rules.StandardHexagonalRules
 import finkmoritz.conwaysgameoflifegame.rules.StandardQuadrangularRules
 import finkmoritz.conwaysgameoflifegame.rules.StandardTriangularRules
 
-class OnRulesSelectedListener(val cellsSpinner : Spinner, val rulesSpinner : Spinner, val rows : List<TableRow>, val spinners : List<Spinner>) : AdapterView.OnItemSelectedListener {
+class onCellsSelectedListener(val cellsSpinner : Spinner, val rows : List<TableRow>, val spinners : List<Spinner>) : AdapterView.OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val selectedCells = cellsSpinner.selectedItem.toString()
-        val selectedRules = rulesSpinner.selectedItem.toString()
 
         val nNeighbours : Int
         val rules : Rules
@@ -32,7 +31,7 @@ class OnRulesSelectedListener(val cellsSpinner : Spinner, val rulesSpinner : Spi
             rules = StandardQuadrangularRules()
         }
 
-        for(i in 0..rows.size-1) {
+        for(i in 0 until rows.size) {
             if(i<=nNeighbours) {
                 rows.get(i).setVisibility(View.VISIBLE)
                 setSpinner(spinners.get(i),rules.getTransition(i))
