@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Spinner
 import android.widget.TableRow
 import finkmoritz.conwaysgameoflifegame.config.onCellsSelectedListener
+import finkmoritz.conwaysgameoflifegame.config.onRulesSelectedListener
 
 class ConfigActivity : AppCompatActivity() {
 
@@ -20,7 +21,6 @@ class ConfigActivity : AppCompatActivity() {
         setContentView(R.layout.activity_config)
 
         cellsSpinner = findViewById(R.id.cells_spinner)
-
         rulesSpinner = findViewById(R.id.rules_spinner)
 
         rows = listOf(findViewById(R.id.neighbours0_row),
@@ -44,10 +44,19 @@ class ConfigActivity : AppCompatActivity() {
                 findViewById(R.id.neighbours8_spinner))
 
         cellsSpinner.onItemSelectedListener = onCellsSelectedListener(cellsSpinner, rows, spinners)
+        rulesSpinner.onItemSelectedListener = onRulesSelectedListener(rulesSpinner, cellsSpinner, rows, spinners)
+
+        enableAllSpinners(spinners, false)
     }
 
     fun startMainActivity(view: View) {
         val intent = Intent(this, MainActivity::class.java).apply {}
         startActivity(intent)
+    }
+
+    private fun enableAllSpinners(spinners : List<Spinner>, isEnabled : Boolean) {
+        for(spinner in spinners) {
+            spinner.isEnabled = isEnabled
+        }
     }
 }
