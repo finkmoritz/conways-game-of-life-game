@@ -14,12 +14,12 @@ import finkmoritz.conwaysgameoflifegame.config.onVoidSeekBarChangeListener
 
 class ConfigActivity : AppCompatActivity() {
 
-    lateinit var cellsSpinner: Spinner
-    lateinit var rulesSpinner: Spinner
-    lateinit var rows: List<TableRow>
-    lateinit var spinners: List<Spinner>
-    lateinit var voidLabel : TextView
-    lateinit var voidSeekBar : SeekBar
+    private lateinit var cellsSpinner: Spinner
+    private lateinit var rulesSpinner: Spinner
+    private lateinit var rows: List<TableRow>
+    private lateinit var spinners: List<Spinner>
+    private lateinit var voidLabel : TextView
+    private lateinit var voidSeekBar : SeekBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

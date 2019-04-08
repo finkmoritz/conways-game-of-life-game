@@ -1,6 +1,6 @@
 package finkmoritz.conwaysgameoflifegame.cell
 
-class SimpleCell(var currentState : Cell.State) : Cell {
+class SimpleCell(private var currentState : Cell.State) : Cell {
 
     override fun setState(state : Cell.State) {
         currentState = state

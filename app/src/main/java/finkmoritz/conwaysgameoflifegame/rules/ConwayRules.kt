@@ -7,13 +7,13 @@ open class ConwayRules : Rules {
     private var nbrToTransition = HashMap<Int,Cell.Transition>()
 
     override fun addTransition(nNeighbours: Int, transition: Cell.Transition) {
-        nbrToTransition.put(nNeighbours,transition)
+        nbrToTransition[nNeighbours] = transition
     }
 
-    override fun getTransition(nNeighbours: Int) = nbrToTransition.get(nNeighbours)
+    override fun getTransition(nNeighbours: Int) = nbrToTransition[nNeighbours]
 
     override fun getNewState(nNeighbours: Int, oldState: Cell.State): Cell.State {
-        val transition = nbrToTransition.get(nNeighbours)
+        val transition = nbrToTransition[nNeighbours]
         return transform(oldState,transition)
     }
 

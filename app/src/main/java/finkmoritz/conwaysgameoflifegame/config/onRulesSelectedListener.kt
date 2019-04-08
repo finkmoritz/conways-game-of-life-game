@@ -5,7 +5,7 @@ import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.TableRow
 
-class onRulesSelectedListener(val rulesSpinner : Spinner, val _cellsSpinner : Spinner, val _rows : List<TableRow>, val _spinners : List<Spinner>) :
+class onRulesSelectedListener(val rulesSpinner : Spinner, _cellsSpinner : Spinner, _rows : List<TableRow>, _spinners : List<Spinner>) :
         onCellsOrRulesSelectedListener(_cellsSpinner,_rows,_spinners) {
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         super.onItemSelected(parent, view, position, id)

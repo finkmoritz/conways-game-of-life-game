@@ -2,10 +2,10 @@ package finkmoritz.conwaysgameoflifegame.board
 
 import finkmoritz.conwaysgameoflifegame.cell.Cell
 
-class TriangularBoard(val _width : Int, val _height : Int) : AbstractBoard(_width,_height) {
+class TriangularBoard(_width : Int, _height : Int) : AbstractBoard(_width,_height) {
 
     override fun getNeighbours(cell: Cell): List<Cell> {
-        var neighbours = mutableListOf<Cell>()
+        val neighbours = mutableListOf<Cell>()
         val index = cells.indexOf(cell)
 
         val pointsUp = index%2 == 0
@@ -15,24 +15,24 @@ class TriangularBoard(val _width : Int, val _height : Int) : AbstractBoard(_widt
         val hasNbrLeft = index%width != 0
 
         if(hasNbrLeft) {
-            neighbours.add(cells.get(index-1))
+            neighbours.add(cells[index-1])
         }
         if(hasNbrRight) {
-            neighbours.add(cells.get(index+1))
+            neighbours.add(cells[index+1])
         }
         if(pointsUp && hasNbrBelow) {
-            neighbours.add(cells.get(index+width))
+            neighbours.add(cells[index+width])
         } else if(!pointsUp && hasNbrAbove) {
-            neighbours.add(cells.get(index-width))
+            neighbours.add(cells[index-width])
         }
 
         return neighbours
     }
 
     override fun clone() : Board {
-        var newBoard = TriangularBoard(width(),height())
-        for(x in 0..width()-1) {
-            for(y in 0..height()-1) {
+        val newBoard = TriangularBoard(width(),height())
+        for(x in 0 until width()) {
+            for(y in 0 until height()) {
                 newBoard.setCellState(x,y,getCell(x,y).getState())
             }
         }
