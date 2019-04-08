@@ -16,7 +16,7 @@
     <string name="dead_text">Dead</string>
     <string name="alive_text">Alive</string>
     <string name="created_text">Created</string>
-    <string name="result_text">Result</string>
+    <string name="result_text">Rule</string>
     <string name="zero_text">0</string>
     <string name="one_text">1</string>
     <string name="two_text">2</string>
@@ -26,4 +26,5 @@
     <string name="six_text">6</string>
     <string name="seven_text">7</string>
     <string name="eight_text">8</string>
+    <string name="voidPercentText">Void (10%)</string>
 </resources>

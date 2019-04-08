@@ -4,10 +4,13 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.TableRow
+import android.widget.TextView
 import finkmoritz.conwaysgameoflifegame.config.onCellsSelectedListener
 import finkmoritz.conwaysgameoflifegame.config.onRulesSelectedListener
+import finkmoritz.conwaysgameoflifegame.config.onVoidSeekBarChangeListener
 
 class ConfigActivity : AppCompatActivity() {
 
@@ -15,6 +18,8 @@ class ConfigActivity : AppCompatActivity() {
     lateinit var rulesSpinner: Spinner
     lateinit var rows: List<TableRow>
     lateinit var spinners: List<Spinner>
+    lateinit var voidLabel : TextView
+    lateinit var voidSeekBar : SeekBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +50,10 @@ class ConfigActivity : AppCompatActivity() {
 
         cellsSpinner.onItemSelectedListener = onCellsSelectedListener(cellsSpinner, rows, spinners)
         rulesSpinner.onItemSelectedListener = onRulesSelectedListener(rulesSpinner, cellsSpinner, rows, spinners)
+
+        voidLabel = findViewById(R.id.voidLabel)
+        voidSeekBar = findViewById(R.id.voidSeekBar)
+        voidSeekBar.setOnSeekBarChangeListener(onVoidSeekBarChangeListener(voidLabel))
 
         enableAllSpinners(spinners, false)
     }

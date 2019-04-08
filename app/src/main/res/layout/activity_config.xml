@@ -107,7 +107,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:entries="@array/result_array"
-                        android:popupBackground="@color/colorAccent" />
+                        android:popupBackground="@color/colorAccent"
+                        android:clickable="false"/>
                 </TableRow>
 
                 <TableRow
@@ -271,7 +272,31 @@
                 </TableRow>
 
             </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/voidLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/voidPercentText"
+                        android:textColor="@color/colorAccent" />
+
+                    <SeekBar
+                        android:id="@+id/voidSeekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:max="50"
+                        android:progress="10" />
+                </TableRow>
+            </TableLayout>
         </LinearLayout>
     </ScrollView>
 
