@@ -26,5 +26,6 @@
     <string name="six_text">6</string>
     <string name="seven_text">7</string>
     <string name="eight_text">8</string>
-    <string name="voidPercentText">Void (10%)</string>
+    <string name="voidPercentText">Void: 10%</string>
+    <string name="sizePercentText">Size: 10\u292B10</string>
 </resources>

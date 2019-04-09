@@ -8,9 +8,10 @@ import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.TableRow
 import android.widget.TextView
-import finkmoritz.conwaysgameoflifegame.config.onCellsSelectedListener
-import finkmoritz.conwaysgameoflifegame.config.onRulesSelectedListener
-import finkmoritz.conwaysgameoflifegame.config.onVoidSeekBarChangeListener
+import finkmoritz.conwaysgameoflifegame.config.OnCellsSelectedListener
+import finkmoritz.conwaysgameoflifegame.config.OnRulesSelectedListener
+import finkmoritz.conwaysgameoflifegame.config.OnVoidSeekBarChangeListener
+import finkmoritz.conwaysgameoflifegame.config.OnSizeSeekBarChangeListener
 
 class ConfigActivity : AppCompatActivity() {
 
@@ -18,6 +19,8 @@ class ConfigActivity : AppCompatActivity() {
     private lateinit var rulesSpinner: Spinner
     private lateinit var rows: List<TableRow>
     private lateinit var spinners: List<Spinner>
+    private lateinit var sizeLabel : TextView
+    private lateinit var sizeSeekBar : SeekBar
     private lateinit var voidLabel : TextView
     private lateinit var voidSeekBar : SeekBar
 
@@ -48,12 +51,16 @@ class ConfigActivity : AppCompatActivity() {
                 findViewById(R.id.neighbours7_spinner),
                 findViewById(R.id.neighbours8_spinner))
 
-        cellsSpinner.onItemSelectedListener = onCellsSelectedListener(cellsSpinner, rows, spinners)
-        rulesSpinner.onItemSelectedListener = onRulesSelectedListener(rulesSpinner, cellsSpinner, rows, spinners)
+        cellsSpinner.onItemSelectedListener = OnCellsSelectedListener(cellsSpinner, rows, spinners)
+        rulesSpinner.onItemSelectedListener = OnRulesSelectedListener(rulesSpinner, cellsSpinner, rows, spinners)
+
+        sizeLabel = findViewById(R.id.sizeLabel)
+        sizeSeekBar = findViewById(R.id.sizeSeekBar)
+        sizeSeekBar.setOnSeekBarChangeListener(OnSizeSeekBarChangeListener(sizeLabel))
 
         voidLabel = findViewById(R.id.voidLabel)
         voidSeekBar = findViewById(R.id.voidSeekBar)
-        voidSeekBar.setOnSeekBarChangeListener(onVoidSeekBarChangeListener(voidLabel))
+        voidSeekBar.setOnSeekBarChangeListener(OnVoidSeekBarChangeListener(voidLabel))
 
         enableAllSpinners(spinners, false)
     }

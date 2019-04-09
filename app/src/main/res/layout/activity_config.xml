@@ -271,9 +271,32 @@
                 </TableRow>
 
             </TableLayout>
+
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/sizeLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/sizePercentText"
+                        android:textColor="@color/colorAccent" />
+
+                    <SeekBar
+                        android:id="@+id/sizeSeekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:max="16"
+                        android:min="3"
+                        android:progress="10" />
+                </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"

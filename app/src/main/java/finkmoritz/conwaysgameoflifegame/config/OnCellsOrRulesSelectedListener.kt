@@ -10,7 +10,7 @@ import finkmoritz.conwaysgameoflifegame.rules.StandardHexagonalRules
 import finkmoritz.conwaysgameoflifegame.rules.StandardQuadrangularRules
 import finkmoritz.conwaysgameoflifegame.rules.StandardTriangularRules
 
-open class onCellsOrRulesSelectedListener(private val cellsSpinner : Spinner, private val rows : List<TableRow>, val spinners : List<Spinner>) : AdapterView.OnItemSelectedListener {
+open class OnCellsOrRulesSelectedListener(private val cellsSpinner : Spinner, private val rows : List<TableRow>, val spinners : List<Spinner>) : AdapterView.OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val selectedCells = cellsSpinner.selectedItem.toString()
 
