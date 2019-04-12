@@ -13,5 +13,34 @@ interface Board {
     fun width() : Int
     fun height() : Int
     fun getSize() : Int
+    fun getTopology() : Topology
     fun clone() : Board
+
+    enum class Topology {
+        TRIANGULAR,
+        QUADRANGULAR,
+        HEXAGONAL;
+    }
+
+    companion object {
+        fun topologyFromString(string: String): Board.Topology {
+            var topology = Board.Topology.QUADRANGULAR
+            if(string == "Triangular") {
+                topology = Board.Topology.TRIANGULAR
+            } else if(string == "Hexagonal") {
+                topology = Board.Topology.HEXAGONAL
+            }
+            return topology
+        }
+
+        fun topologyToString(topology: Board.Topology): String {
+            var string = "Quadrangular"
+            if(topology == Board.Topology.TRIANGULAR) {
+                string = "Triangular"
+            } else if(topology == Board.Topology.HEXAGONAL) {
+                string = "Hexagonal"
+            }
+            return string
+        }
+    }
 }

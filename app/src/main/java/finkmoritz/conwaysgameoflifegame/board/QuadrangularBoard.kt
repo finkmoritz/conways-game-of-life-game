@@ -41,6 +41,10 @@ class QuadrangularBoard(_width : Int, _height : Int) : AbstractBoard(_width,_hei
         return neighbours
     }
 
+    override fun getTopology(): Board.Topology {
+        return Board.Topology.QUADRANGULAR
+    }
+
     override fun clone() : Board {
         val newBoard = QuadrangularBoard(width(),height())
         for(x in 0 until width()) {

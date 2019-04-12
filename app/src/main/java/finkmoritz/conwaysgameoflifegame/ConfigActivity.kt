@@ -1,17 +1,17 @@
 package finkmoritz.conwaysgameoflifegame
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.SeekBar
+import android.widget.*
+import finkmoritz.conwaysgameoflifegame.board.AbstractBoard
+import finkmoritz.conwaysgameoflifegame.board.Board
+import finkmoritz.conwaysgameoflifegame.config.*
+import finkmoritz.conwaysgameoflifegame.persistence.AppDatabase
 import android.widget.Spinner
-import android.widget.TableRow
-import android.widget.TextView
-import finkmoritz.conwaysgameoflifegame.config.OnCellsSelectedListener
-import finkmoritz.conwaysgameoflifegame.config.OnRulesSelectedListener
-import finkmoritz.conwaysgameoflifegame.config.OnVoidSeekBarChangeListener
-import finkmoritz.conwaysgameoflifegame.config.OnSizeSeekBarChangeListener
+
+
 
 class ConfigActivity : AppCompatActivity() {
 
@@ -65,6 +65,16 @@ class ConfigActivity : AppCompatActivity() {
         enableAllSpinners(spinners, false)
     }
 
+    override fun onPause() {
+        saveConfig()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadConfig()
+    }
+
     fun startMainActivity(view: View) {
         val intent = Intent(this, MainActivity::class.java).apply {}
         startActivity(intent)
@@ -73,6 +83,28 @@ class ConfigActivity : AppCompatActivity() {
     private fun enableAllSpinners(spinners : List<Spinner>, isEnabled : Boolean) {
         for(spinner in spinners) {
             spinner.isEnabled = isEnabled
+        }
+    }
+
+    private fun loadConfig() {
+        val config = ConfigManagerImpl(this).load()
+        selectValue(cellsSpinner,config.boardTopology)
+        //TODO
+    }
+
+    private fun saveConfig() {
+        var config = ConfigDO()
+        config.boardTopology = cellsSpinner.selectedItem.toString()
+        //TODO
+        ConfigManagerImpl(this).save(config)
+    }
+
+    private fun selectValue(spinner: Spinner, value: Any) {
+        for (i in 0 until spinner.count) {
+            if (spinner.getItemAtPosition(i) == value) {
+                spinner.setSelection(i)
+                break
+            }
         }
     }
 }

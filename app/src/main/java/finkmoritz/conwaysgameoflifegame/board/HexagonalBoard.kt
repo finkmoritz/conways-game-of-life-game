@@ -33,6 +33,10 @@ class HexagonalBoard(_width : Int, val _height : Int) : AbstractBoard(_width,_he
         return neighbours
     }
 
+    override fun getTopology(): Board.Topology {
+        return Board.Topology.HEXAGONAL
+    }
+
     override fun clone() : Board {
         val newBoard = HexagonalBoard(width(),height())
         for(x in 0 until width()) {

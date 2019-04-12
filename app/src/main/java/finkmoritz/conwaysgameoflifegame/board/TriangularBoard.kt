@@ -29,6 +29,10 @@ class TriangularBoard(_width : Int, _height : Int) : AbstractBoard(_width,_heigh
         return neighbours
     }
 
+    override fun getTopology(): Board.Topology {
+        return Board.Topology.TRIANGULAR
+    }
+
     override fun clone() : Board {
         val newBoard = TriangularBoard(width(),height())
         for(x in 0 until width()) {
