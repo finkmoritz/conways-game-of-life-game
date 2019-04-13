@@ -3,6 +3,7 @@ package finkmoritz.conwaysgameoflifegame.board
 import finkmoritz.conwaysgameoflifegame.cell.Cell
 import finkmoritz.conwaysgameoflifegame.cell.SimpleCell
 import finkmoritz.conwaysgameoflifegame.rules.Rules
+import java.util.*
 
 abstract class AbstractBoard(protected val width : Int, private val height : Int) : Board {
 
@@ -34,4 +35,22 @@ abstract class AbstractBoard(protected val width : Int, private val height : Int
     override fun width() = width
     override fun height() = height
     override fun getSize(): Int = width()*height()
+
+    override fun randomize(voidPercentage: Int) {
+        val random = Random(0)
+        val living = 0.5
+        val livePercentage = living * (100-voidPercentage)
+        for(cell in cells) {
+            val r = random.nextInt(100)
+            if(r < voidPercentage) {
+                cell.setState(Cell.State.VOID)
+            } else {
+                if(r < voidPercentage+livePercentage) {
+                    cell.setState(Cell.State.ALIVE)
+                } else {
+                    cell.setState(Cell.State.DEAD)
+                }
+            }
+        }
+    }
 }

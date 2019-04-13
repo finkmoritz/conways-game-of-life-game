@@ -8,14 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import finkmoritz.conwaysgameoflifegame.config.ConfigDO
+import finkmoritz.conwaysgameoflifegame.game.view.GameView
 
 class GameActivity : AppCompatActivity() {
 
     lateinit var mAdView : AdView
-    lateinit var menuView : View
-    lateinit var gameView : View
+    lateinit var menuLayout : View
+    lateinit var gameLayout : View
     lateinit var menuButton : Button
     lateinit var initialConfig : ConfigDO
+    lateinit var gameView : GameView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,12 +27,16 @@ class GameActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
 
-        menuView = findViewById(R.id.gameMenu)
-        gameView = findViewById(R.id.gameLayout)
+        menuLayout = findViewById(R.id.gameMenu)
+        gameLayout = findViewById(R.id.gameLayout)
 
         menuButton = findViewById(R.id.gameMenuButton)
 
+        gameView = findViewById(R.id.gameView)
+
         initialConfig = intent.getSerializableExtra("initialConfig") as ConfigDO
+
+        gameView.initialize(initialConfig)
     }
 
     override fun onBackPressed() {
@@ -44,19 +50,19 @@ class GameActivity : AppCompatActivity() {
 
     fun showMenu(view: View) {
         hideGame()
-        menuView.visibility = View.VISIBLE
+        menuLayout.visibility = View.VISIBLE
     }
 
     fun hideMenu(view: View) {
-        menuView.visibility = View.GONE
+        menuLayout.visibility = View.GONE
         showGame()
     }
 
     private fun showGame() {
-        gameView.visibility = View.VISIBLE
+        gameLayout.visibility = View.VISIBLE
     }
 
     private fun hideGame() {
-        gameView.visibility = View.INVISIBLE
+        gameLayout.visibility = View.INVISIBLE
     }
 }
