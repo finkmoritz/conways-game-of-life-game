@@ -18,12 +18,10 @@ open class OnCellsOrRulesSelectedListener(val configActivity: ConfigActivity)
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val selectedCells = cellsSpinner.selectedItem.toString()
         val rules : Rules
-        if(selectedCells == "Triangular") {
-            rules = StandardTriangularRules()
-        } else if(selectedCells == "Hexagonal") {
-            rules = StandardHexagonalRules()
-        } else {
-            rules = StandardQuadrangularRules()
+        when (selectedCells) {
+            "Triangular" -> rules = StandardTriangularRules()
+            "Hexagonal" -> rules = StandardHexagonalRules()
+            else -> rules = StandardQuadrangularRules()
         }
         configActivity.setSpinnersFromRules(rules)
     }

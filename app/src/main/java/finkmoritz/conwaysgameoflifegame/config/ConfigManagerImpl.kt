@@ -3,7 +3,7 @@ package finkmoritz.conwaysgameoflifegame.config
 import android.content.Context
 import finkmoritz.conwaysgameoflifegame.persistence.AppDatabase
 
-class ConfigManagerImpl(val context: Context) : ConfigManager {
+class ConfigManagerImpl(private val context: Context) : ConfigManager {
     override fun save(configDO: ConfigDO) {
         if(configDO == null) {
             AppDatabase.getInstance(context).configDao().save(ConfigDO())

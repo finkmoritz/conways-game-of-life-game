@@ -2,7 +2,7 @@ package finkmoritz.conwaysgameoflifegame.board
 
 import finkmoritz.conwaysgameoflifegame.cell.Cell
 
-class HexagonalBoard(_width : Int, val _height : Int) : AbstractBoard(_width,_height) {
+class HexagonalBoard(_width : Int, _height : Int) : AbstractBoard(_width,_height) {
 
     override fun getAllCells(): List<Cell> = cells
 

@@ -1,17 +1,15 @@
 package finkmoritz.conwaysgameoflifegame
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.*
-import finkmoritz.conwaysgameoflifegame.board.AbstractBoard
-import finkmoritz.conwaysgameoflifegame.board.Board
-import finkmoritz.conwaysgameoflifegame.config.*
-import finkmoritz.conwaysgameoflifegame.persistence.AppDatabase
+import android.widget.SeekBar
 import android.widget.Spinner
+import android.widget.TableRow
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import finkmoritz.conwaysgameoflifegame.cell.Cell
+import finkmoritz.conwaysgameoflifegame.config.*
 import finkmoritz.conwaysgameoflifegame.rules.ConwayRules
 import finkmoritz.conwaysgameoflifegame.rules.Rules
 
@@ -20,7 +18,7 @@ class ConfigActivity : AppCompatActivity() {
 
     lateinit var cellsSpinner: Spinner
     lateinit var rulesSpinner: Spinner
-    lateinit var rows: List<TableRow>
+    private lateinit var rows: List<TableRow>
     lateinit var spinners: List<Spinner>
     private lateinit var sizeLabel : TextView
     private lateinit var sizeSeekBar : SeekBar
@@ -64,11 +62,11 @@ class ConfigActivity : AppCompatActivity() {
 
         sizeLabel = findViewById(R.id.sizeLabel)
         sizeSeekBar = findViewById(R.id.sizeSeekBar)
-        sizeSeekBar.setOnSeekBarChangeListener(OnSizeSeekBarChangeListener(sizeLabel))
+        sizeSeekBar.setOnSeekBarChangeListener(OnSizeSeekBarChangeListener(this))
 
         voidLabel = findViewById(R.id.voidLabel)
         voidSeekBar = findViewById(R.id.voidSeekBar)
-        voidSeekBar.setOnSeekBarChangeListener(OnVoidSeekBarChangeListener(voidLabel))
+        voidSeekBar.setOnSeekBarChangeListener(OnVoidSeekBarChangeListener(this))
 
         enableAllSpinners(spinners, false)
     }
@@ -104,7 +102,7 @@ class ConfigActivity : AppCompatActivity() {
     }
 
     private fun saveConfig() {
-        var config = ConfigDO()
+        val config = ConfigDO()
         config.boardTopology = cellsSpinner.selectedItem.toString()
         config.rules = rulesSpinner.selectedItem.toString()
         config.customRules = Rules.rulesToString(getRulesFromSpinners(spinners))
@@ -126,12 +124,10 @@ class ConfigActivity : AppCompatActivity() {
         var rules = ConwayRules()
         var nNeighbours = 0
         for(spinner in spinners) {
-            if(spinner.selectedItem.toString() == "Live") {
-                rules.addTransition(nNeighbours++, Cell.Transition.LIVE)
-            } else if(spinner.selectedItem.toString() == "Persist") {
-                rules.addTransition(nNeighbours++, Cell.Transition.PERSIST)
-            } else {
-                rules.addTransition(nNeighbours++, Cell.Transition.DIE)
+            when {
+                spinner.selectedItem.toString() == "Live" -> rules.addTransition(nNeighbours++, Cell.Transition.LIVE)
+                spinner.selectedItem.toString() == "Persist" -> rules.addTransition(nNeighbours++, Cell.Transition.PERSIST)
+                else -> rules.addTransition(nNeighbours++, Cell.Transition.DIE)
             }
         }
         return rules

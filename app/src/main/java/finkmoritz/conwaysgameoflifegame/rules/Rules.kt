@@ -15,12 +15,10 @@ interface Rules {
             var nNeighbours = 0
             var transition = rules.getTransition(nNeighbours++)
             while (transition != null) {
-                if(transition == Cell.Transition.LIVE) {
-                    rulesString += "1"
-                } else if(transition == Cell.Transition.PERSIST) {
-                    rulesString += "0"
-                } else {
-                    rulesString += "2"
+                when (transition) {
+                    Cell.Transition.LIVE -> rulesString += "1"
+                    Cell.Transition.PERSIST -> rulesString += "0"
+                    else -> rulesString += "2"
                 }
                 transition = rules.getTransition(nNeighbours++)
             }
@@ -28,7 +26,7 @@ interface Rules {
         }
 
         fun stringToRules(string: String): ConwayRules {
-            var rules = ConwayRules()
+            val rules = ConwayRules()
             for(i in 0 until string.length) {
                 if(string[i] == '1') {
                     rules.addTransition(i,Cell.Transition.LIVE)

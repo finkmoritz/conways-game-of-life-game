@@ -23,21 +23,21 @@ interface Board {
     }
 
     companion object {
-        fun topologyFromString(string: String): Board.Topology {
-            var topology = Board.Topology.QUADRANGULAR
+        fun topologyFromString(string: String): Topology {
+            var topology = Topology.QUADRANGULAR
             if(string == "Triangular") {
-                topology = Board.Topology.TRIANGULAR
+                topology = Topology.TRIANGULAR
             } else if(string == "Hexagonal") {
-                topology = Board.Topology.HEXAGONAL
+                topology = Topology.HEXAGONAL
             }
             return topology
         }
 
-        fun topologyToString(topology: Board.Topology): String {
+        fun topologyToString(topology: Topology): String {
             var string = "Quadrangular"
-            if(topology == Board.Topology.TRIANGULAR) {
+            if(topology == Topology.TRIANGULAR) {
                 string = "Triangular"
-            } else if(topology == Board.Topology.HEXAGONAL) {
+            } else if(topology == Topology.HEXAGONAL) {
                 string = "Hexagonal"
             }
             return string

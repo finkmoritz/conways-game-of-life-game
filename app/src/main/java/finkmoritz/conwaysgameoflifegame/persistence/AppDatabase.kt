@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import finkmoritz.conwaysgameoflifegame.config.ConfigDAO
 import finkmoritz.conwaysgameoflifegame.config.ConfigDO
 
-@Database(entities = arrayOf(ConfigDO::class), version = 1, exportSchema = false)
+@Database(entities = [ConfigDO::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun configDao(): ConfigDAO
 

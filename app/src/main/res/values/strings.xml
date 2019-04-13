@@ -1,21 +1,19 @@
 <resources>
     <string name="app_name">Conway\'s Game of Life Game</string>
 
-    <!-- Main menu -->
+    <!-- Main Activity -->
     <string name="startgame_text">Start Game</string>
     <string name="tutorial_text">Tutorial</string>
     <string name="settings_text">Settings</string>
     <string name="title1">Conway\'s Game of Life</string>
     <string name="title2">The Game</string>
     <string name="footer_text">Created by Moritz Fink</string>
+    <!-- Config Activity -->
     <string name="back_text">Back</string>
     <string name="play_text">Play</string>
     <string name="rules_text">Rules</string>
     <string name="cells_text">Cells</string>
     <string name="neighbours_text">Neighbours</string>
-    <string name="dead_text">Die</string>
-    <string name="alive_text">Persist</string>
-    <string name="created_text">Live</string>
     <string name="result_text">Rule</string>
     <string name="zero_text">0</string>
     <string name="one_text">1</string>
@@ -27,5 +25,7 @@
     <string name="seven_text">7</string>
     <string name="eight_text">8</string>
     <string name="voidPercentText">Void: 10%</string>
+    <string name="voidPercentTextTemplate">Void: %1$d%%</string>
     <string name="sizePercentText">Size: 10\u292B10</string>
+    <string name="sizePercentTextTemplate">Size: %1$d\u292B%2$d</string>
 </resources>

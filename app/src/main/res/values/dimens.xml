@@ -3,5 +3,4 @@
     <dimen name="title_margin">50sp</dimen>
     <dimen name="footer_size">10sp</dimen>
     <dimen name="table_spacing">5sp</dimen>
-    <dimen name="content_margin">5sp</dimen>
 </resources>

@@ -9,7 +9,7 @@ abstract class AbstractBoard(protected val width : Int, private val height : Int
     protected var cells = mutableListOf<Cell>()
 
     init {
-        for(i in 0..(width*height-1)) {
+        for(i in 0 until width*height) {
             cells.add(SimpleCell(Cell.State.VOID))
         }
     }
