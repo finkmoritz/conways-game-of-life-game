@@ -3,6 +3,7 @@ package finkmoritz.conwaysgameoflifegame
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import finkmoritz.conwaysgameoflifegame.board.AbstractBoard
@@ -10,19 +11,23 @@ import finkmoritz.conwaysgameoflifegame.board.Board
 import finkmoritz.conwaysgameoflifegame.config.*
 import finkmoritz.conwaysgameoflifegame.persistence.AppDatabase
 import android.widget.Spinner
-
+import finkmoritz.conwaysgameoflifegame.cell.Cell
+import finkmoritz.conwaysgameoflifegame.rules.ConwayRules
+import finkmoritz.conwaysgameoflifegame.rules.Rules
 
 
 class ConfigActivity : AppCompatActivity() {
 
-    private lateinit var cellsSpinner: Spinner
-    private lateinit var rulesSpinner: Spinner
-    private lateinit var rows: List<TableRow>
-    private lateinit var spinners: List<Spinner>
+    lateinit var cellsSpinner: Spinner
+    lateinit var rulesSpinner: Spinner
+    lateinit var rows: List<TableRow>
+    lateinit var spinners: List<Spinner>
     private lateinit var sizeLabel : TextView
     private lateinit var sizeSeekBar : SeekBar
     private lateinit var voidLabel : TextView
     private lateinit var voidSeekBar : SeekBar
+    private lateinit var onCellsSelectedListener : OnCellsSelectedListener
+    private lateinit var onRulesSelectedListener : OnRulesSelectedListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +56,11 @@ class ConfigActivity : AppCompatActivity() {
                 findViewById(R.id.neighbours7_spinner),
                 findViewById(R.id.neighbours8_spinner))
 
-        cellsSpinner.onItemSelectedListener = OnCellsSelectedListener(cellsSpinner, rows, spinners)
-        rulesSpinner.onItemSelectedListener = OnRulesSelectedListener(rulesSpinner, cellsSpinner, rows, spinners)
+        onCellsSelectedListener = OnCellsSelectedListener(this)
+        onRulesSelectedListener = OnRulesSelectedListener(this)
+
+        cellsSpinner.onItemSelectedListener = onCellsSelectedListener
+        rulesSpinner.onItemSelectedListener = onRulesSelectedListener
 
         sizeLabel = findViewById(R.id.sizeLabel)
         sizeSeekBar = findViewById(R.id.sizeSeekBar)
@@ -80,7 +88,7 @@ class ConfigActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun enableAllSpinners(spinners : List<Spinner>, isEnabled : Boolean) {
+    fun enableAllSpinners(spinners : List<Spinner>, isEnabled : Boolean) {
         for(spinner in spinners) {
             spinner.isEnabled = isEnabled
         }
@@ -89,13 +97,19 @@ class ConfigActivity : AppCompatActivity() {
     private fun loadConfig() {
         val config = ConfigManagerImpl(this).load()
         selectValue(cellsSpinner,config.boardTopology)
-        //TODO
+        selectValue(rulesSpinner,config.rules)
+        setSpinnersFromRules(Rules.stringToRules(config.customRules))
+        sizeSeekBar.progress = config.boardSize
+        voidSeekBar.progress = config.voidPercentage
     }
 
     private fun saveConfig() {
         var config = ConfigDO()
         config.boardTopology = cellsSpinner.selectedItem.toString()
-        //TODO
+        config.rules = rulesSpinner.selectedItem.toString()
+        config.customRules = Rules.rulesToString(getRulesFromSpinners(spinners))
+        config.boardSize = sizeSeekBar.progress
+        config.voidPercentage = voidSeekBar.progress
         ConfigManagerImpl(this).save(config)
     }
 
@@ -106,5 +120,44 @@ class ConfigActivity : AppCompatActivity() {
                 break
             }
         }
+    }
+
+    private fun getRulesFromSpinners(spinners: List<Spinner>) : Rules {
+        var rules = ConwayRules()
+        var nNeighbours = 0
+        for(spinner in spinners) {
+            if(spinner.selectedItem.toString() == "Live") {
+                rules.addTransition(nNeighbours++, Cell.Transition.LIVE)
+            } else if(spinner.selectedItem.toString() == "Persist") {
+                rules.addTransition(nNeighbours++, Cell.Transition.PERSIST)
+            } else {
+                rules.addTransition(nNeighbours++, Cell.Transition.DIE)
+            }
+        }
+        return rules
+    }
+
+    fun setSpinnersFromRules(rules: Rules) {
+        val nNeighbours = rules.getMaxNumberOfNeighbours()
+        for(i in 0 until rows.size) {
+            if(i<=nNeighbours) {
+                rows[i].visibility = View.VISIBLE
+                setSpinnerFromTransition(spinners[i],rules.getTransition(i))
+            } else {
+                rows[i].visibility = View.INVISIBLE
+            }
+        }
+    }
+
+    private fun setSpinnerFromTransition(spinner : Spinner, transition : Cell.Transition?) {
+        var id = 0
+        if(transition != null) {
+            if(transition == Cell.Transition.PERSIST) {
+                id=2
+            } else if(transition == Cell.Transition.LIVE) {
+                id=1
+            }
+        }
+        spinner.setSelection(id)
     }
 }

@@ -7,6 +7,7 @@ interface Rules {
     fun addTransition(nNeighbours : Int, transition : Cell.Transition)
     fun getTransition(nNeighbours: Int) : Cell.Transition?
     fun getNewState(nNeighbours: Int, oldState : Cell.State) : Cell.State
+    fun getMaxNumberOfNeighbours() : Int
 
     companion object {
         fun rulesToString(rules: Rules): String {
@@ -26,7 +27,8 @@ interface Rules {
             return rulesString
         }
 
-        fun stringToRules(string: String, rules: Rules) {
+        fun stringToRules(string: String): ConwayRules {
+            var rules = ConwayRules()
             for(i in 0 until string.length) {
                 if(string[i] == '1') {
                     rules.addTransition(i,Cell.Transition.LIVE)
@@ -36,6 +38,7 @@ interface Rules {
                     rules.addTransition(i,Cell.Transition.DIE)
                 }
             }
+            return rules
         }
     }
 }

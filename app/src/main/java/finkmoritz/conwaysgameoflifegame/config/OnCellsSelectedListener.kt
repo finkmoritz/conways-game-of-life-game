@@ -1,7 +1,6 @@
 package finkmoritz.conwaysgameoflifegame.config
 
-import android.widget.TableRow
-import android.widget.Spinner
+import finkmoritz.conwaysgameoflifegame.ConfigActivity
 
-class OnCellsSelectedListener(_cellsSpinner : Spinner, _rows : List<TableRow>, _spinners : List<Spinner>) :
-        OnCellsOrRulesSelectedListener(_cellsSpinner,_rows,_spinners)
+class OnCellsSelectedListener(_configActivity: ConfigActivity) :
+        OnCellsOrRulesSelectedListener(_configActivity)

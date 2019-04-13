@@ -10,4 +10,6 @@ class StandardTriangularRules : ConwayRules() {
         addTransition(2, Cell.Transition.PERSIST)
         addTransition(3, Cell.Transition.LIVE)
     }
+
+    override fun getMaxNumberOfNeighbours() = 3
 }

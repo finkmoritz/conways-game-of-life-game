@@ -13,9 +13,9 @@
     <string name="rules_text">Rules</string>
     <string name="cells_text">Cells</string>
     <string name="neighbours_text">Neighbours</string>
-    <string name="dead_text">Dead</string>
-    <string name="alive_text">Alive</string>
-    <string name="created_text">Created</string>
+    <string name="dead_text">Die</string>
+    <string name="alive_text">Persist</string>
+    <string name="created_text">Live</string>
     <string name="result_text">Rule</string>
     <string name="zero_text">0</string>
     <string name="one_text">1</string>

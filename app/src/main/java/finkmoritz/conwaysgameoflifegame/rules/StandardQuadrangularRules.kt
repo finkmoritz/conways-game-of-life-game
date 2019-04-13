@@ -15,4 +15,6 @@ class StandardQuadrangularRules : ConwayRules() {
         addTransition(7, Cell.Transition.DIE)
         addTransition(8, Cell.Transition.DIE)
     }
+
+    override fun getMaxNumberOfNeighbours() = 8
 }

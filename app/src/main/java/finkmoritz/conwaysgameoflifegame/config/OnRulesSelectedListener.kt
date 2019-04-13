@@ -2,23 +2,18 @@ package finkmoritz.conwaysgameoflifegame.config
 
 import android.view.View
 import android.widget.AdapterView
-import android.widget.Spinner
-import android.widget.TableRow
+import finkmoritz.conwaysgameoflifegame.ConfigActivity
 
-class OnRulesSelectedListener(val rulesSpinner : Spinner, _cellsSpinner : Spinner, _rows : List<TableRow>, _spinners : List<Spinner>) :
-        OnCellsOrRulesSelectedListener(_cellsSpinner,_rows,_spinners) {
+class OnRulesSelectedListener(_configActivity: ConfigActivity) :
+        OnCellsOrRulesSelectedListener(_configActivity) {
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         super.onItemSelected(parent, view, position, id)
 
         val selectedRules = rulesSpinner.selectedItem.toString()
         if (selectedRules.contains("Custom")) {
-            for (spinner in spinners) {
-                spinner.isEnabled = true
-            }
+            configActivity.enableAllSpinners(spinners,true)
         } else {
-            for (spinner in spinners) {
-                spinner.isEnabled = false
-            }
+            configActivity.enableAllSpinners(spinners,false)
         }
     }
 }

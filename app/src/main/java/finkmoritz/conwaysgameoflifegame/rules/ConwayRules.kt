@@ -17,6 +17,8 @@ open class ConwayRules : Rules {
         return transform(oldState,transition)
     }
 
+    override fun getMaxNumberOfNeighbours() = 0
+
     private fun transform(oldState: Cell.State, transition: Cell.Transition?): Cell.State {
         var newState = oldState
         if(transition != null) {

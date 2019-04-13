@@ -13,4 +13,6 @@ class StandardHexagonalRules : ConwayRules() {
         addTransition(5, Cell.Transition.DIE)
         addTransition(6, Cell.Transition.DIE)
     }
+
+    override fun getMaxNumberOfNeighbours() = 6
 }
