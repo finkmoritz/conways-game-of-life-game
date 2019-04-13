@@ -7,6 +7,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
+import finkmoritz.conwaysgameoflifegame.config.ConfigDO
 
 class GameActivity : AppCompatActivity() {
 
@@ -14,6 +15,7 @@ class GameActivity : AppCompatActivity() {
     lateinit var menuView : View
     lateinit var gameView : View
     lateinit var menuButton : Button
+    lateinit var initialConfig : ConfigDO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +29,8 @@ class GameActivity : AppCompatActivity() {
         gameView = findViewById(R.id.gameLayout)
 
         menuButton = findViewById(R.id.gameMenuButton)
+
+        initialConfig = intent.getSerializableExtra("initialConfig") as ConfigDO
     }
 
     override fun onBackPressed() {

@@ -94,7 +94,7 @@ class ConfigActivity : AppCompatActivity() {
     fun startGameActivity(view: View) {
         val config = saveConfig()
         val intent = Intent(this,GameActivity::class.java).apply {}
-        //TODO add config to intent
+        intent.putExtra("initialConfig",config)
         startActivity(intent)
     }
 

@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import finkmoritz.conwaysgameoflifegame.board.Board
 import finkmoritz.conwaysgameoflifegame.rules.Rules
 import finkmoritz.conwaysgameoflifegame.rules.StandardQuadrangularRules
+import java.io.Serializable
 
 @Entity(tableName = "config")
 data class ConfigDO(
@@ -15,4 +16,4 @@ data class ConfigDO(
         @ColumnInfo(name = "custom_rules") var customRules: String = Rules.rulesToString(StandardQuadrangularRules()),
         @ColumnInfo(name = "board_size") var boardSize: Int = 10,
         @ColumnInfo(name = "void_percentage") var voidPercentage: Int = 10
-)
+) : Serializable
