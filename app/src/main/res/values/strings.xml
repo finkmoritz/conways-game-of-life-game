@@ -28,4 +28,10 @@
     <string name="voidPercentTextTemplate">Void: %1$d%%</string>
     <string name="sizePercentText">Size: 10\u292B10</string>
     <string name="sizePercentTextTemplate">Size: %1$d\u292B%2$d</string>
+    <!-- Game Activity -->
+    <string name="title_activity_game">GameActivity</string>
+    <string name="menuText">Menu</string>
+    <string name="nextTurnText">Next Turn</string>
+    <string name="resumeText">Resume</string>
+    <string name="concedeText">Concede</string>
 </resources>

@@ -330,6 +330,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/configBackButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -340,6 +341,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="startGameActivity"
             android:text="@string/play_text" />
     </LinearLayout>
 </LinearLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".GameActivity">
+
+    <LinearLayout
+        android:id="@+id/gameMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/concedeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="startConfigActivity"
+            android:text="@string/concedeText" />
+
+        <Button
+            android:id="@+id/resumeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="hideMenu"
+            android:text="@string/resumeText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/gameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/gameMenuButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="showMenu"
+                android:text="@string/menuText" />
+
+            <Button
+                android:id="@+id/nextTurnButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/nextTurnText" />
+        </LinearLayout>
+
+        <requestFocus></requestFocus>
+    </LinearLayout>
+
+</FrameLayout>

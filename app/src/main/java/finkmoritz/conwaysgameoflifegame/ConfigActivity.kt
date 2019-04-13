@@ -3,15 +3,13 @@ package finkmoritz.conwaysgameoflifegame
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.SeekBar
-import android.widget.Spinner
-import android.widget.TableRow
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import finkmoritz.conwaysgameoflifegame.cell.Cell
 import finkmoritz.conwaysgameoflifegame.config.*
 import finkmoritz.conwaysgameoflifegame.rules.ConwayRules
 import finkmoritz.conwaysgameoflifegame.rules.Rules
+import kotlinx.android.synthetic.main.activity_config.*
 
 
 class ConfigActivity : AppCompatActivity() {
@@ -26,6 +24,7 @@ class ConfigActivity : AppCompatActivity() {
     private lateinit var voidSeekBar : SeekBar
     private lateinit var onCellsSelectedListener : OnCellsSelectedListener
     private lateinit var onRulesSelectedListener : OnRulesSelectedListener
+    private lateinit var backButton : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +67,8 @@ class ConfigActivity : AppCompatActivity() {
         voidSeekBar = findViewById(R.id.voidSeekBar)
         voidSeekBar.setOnSeekBarChangeListener(OnVoidSeekBarChangeListener(this))
 
+        backButton = findViewById(R.id.configBackButton)
+
         enableAllSpinners(spinners, false)
     }
 
@@ -81,8 +82,19 @@ class ConfigActivity : AppCompatActivity() {
         loadConfig()
     }
 
+    override fun onBackPressed() {
+        startMainActivity(configBackButton)
+    }
+
     fun startMainActivity(view: View) {
         val intent = Intent(this, MainActivity::class.java).apply {}
+        startActivity(intent)
+    }
+
+    fun startGameActivity(view: View) {
+        val config = saveConfig()
+        val intent = Intent(this,GameActivity::class.java).apply {}
+        //TODO add config to intent
         startActivity(intent)
     }
 
@@ -101,7 +113,7 @@ class ConfigActivity : AppCompatActivity() {
         voidSeekBar.progress = config.voidPercentage
     }
 
-    private fun saveConfig() {
+    private fun saveConfig() : ConfigDO {
         val config = ConfigDO()
         config.boardTopology = cellsSpinner.selectedItem.toString()
         config.rules = rulesSpinner.selectedItem.toString()
@@ -109,6 +121,7 @@ class ConfigActivity : AppCompatActivity() {
         config.boardSize = sizeSeekBar.progress
         config.voidPercentage = voidSeekBar.progress
         ConfigManagerImpl(this).save(config)
+        return config
     }
 
     private fun selectValue(spinner: Spinner, value: Any) {
