@@ -28,21 +28,25 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
         style = Paint.Style.STROKE
         color = BACKGROUND_COLOR
         setBackgroundColor(BACKGROUND_COLOR)
+        pathEffect = CornerPathEffect(BORDER_RADIUS)
     }
     private val voidPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
         color = Color.BLACK
         setBackgroundColor(BACKGROUND_COLOR)
+        pathEffect = CornerPathEffect(BORDER_RADIUS)
     }
     private val deadPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
         color = Color.WHITE
         setBackgroundColor(BACKGROUND_COLOR)
+        pathEffect = CornerPathEffect(BORDER_RADIUS)
     }
     private val alivePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
         color = Color.rgb(50,50,225)
         setBackgroundColor(BACKGROUND_COLOR)
+        pathEffect = CornerPathEffect(BORDER_RADIUS)
     }
 
 
@@ -107,8 +111,8 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
                             paint = alivePaint
                         }
                         val cellRect = RectF(x*cellWidth,y*cellHeight,(x+1)*cellWidth,(y+1)*cellHeight)
-                        drawRoundRect(cellRect,BORDER_RADIUS,BORDER_RADIUS,paint)
-                        drawRoundRect(cellRect,BORDER_RADIUS,BORDER_RADIUS,borderPaint)
+                        drawRect(cellRect,paint)
+                        drawRect(cellRect,borderPaint)
                     }
                 }
             }
