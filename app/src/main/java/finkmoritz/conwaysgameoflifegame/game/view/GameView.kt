@@ -2,10 +2,7 @@ package finkmoritz.conwaysgameoflifegame.game.view
 
 import android.annotation.TargetApi
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.RectF
+import android.graphics.*
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
@@ -67,15 +64,40 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
     }
 
     override fun onDraw(canvas: Canvas) {
-        val cellWidth : Float = width.toFloat()/board.width()
-        val cellHeight : Float = height.toFloat()/board.height()
-
         canvas.apply {
             if(board is TriangularBoard) {
-
+                val cellWidth : Float = 2*width.toFloat()/(board.width()+1)
+                val cellHeight : Float = height.toFloat()/board.height()
+                for(x in 0 until board.width()) {
+                    for(y in 0 until board.height()) {
+                        var paint = voidPaint
+                        if(board.getCellState(x,y) == Cell.State.DEAD) {
+                            paint = deadPaint
+                        } else if(board.getCellState(x,y) == Cell.State.ALIVE) {
+                            paint = alivePaint
+                        }
+                        var path = Path()
+                        if(x%2 != y%2) { //upward
+                            path.moveTo(x/2.0f*cellWidth,(y+1)*cellHeight)
+                            path.lineTo((x/2.0f+0.5f)*cellWidth,y*cellHeight)
+                            path.lineTo((x/2.0f+1)*cellWidth,(y+1)*cellHeight)
+                            path.lineTo(x/2.0f*cellWidth,(y+1)*cellHeight)
+                        } else { //downward
+                            path.moveTo(x/2.0f*cellWidth,y*cellHeight)
+                            path.lineTo((x/2.0f+1)*cellWidth,y*cellHeight)
+                            path.lineTo((x/2.0f+0.5f)*cellWidth,(y+1)*cellHeight)
+                            path.lineTo(x/2.0f*cellWidth,y*cellHeight)
+                        }
+                        path.close()
+                        drawPath(path,paint)
+                        drawPath(path,borderPaint)
+                    }
+                }
             } else if(board is HexagonalBoard) {
 
             } else {
+                val cellWidth : Float = width.toFloat()/board.width()
+                val cellHeight : Float = height.toFloat()/board.height()
                 for(x in 0 until board.width()) {
                     for(y in 0 until board.height()) {
                         var paint = voidPaint
