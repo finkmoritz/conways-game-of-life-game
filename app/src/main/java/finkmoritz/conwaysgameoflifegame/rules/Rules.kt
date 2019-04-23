@@ -26,7 +26,12 @@ interface Rules {
         }
 
         fun stringToRules(string: String): ConwayRules {
-            val rules = ConwayRules()
+            var rules = ConwayRules()
+            when(string.length - 1) {
+                StandardTriangularRules().getMaxNumberOfNeighbours() -> rules = StandardTriangularRules()
+                StandardHexagonalRules().getMaxNumberOfNeighbours() -> rules = StandardHexagonalRules()
+                StandardQuadrangularRules().getMaxNumberOfNeighbours() -> rules = StandardQuadrangularRules()
+            }
             for(i in 0 until string.length) {
                 if(string[i] == '1') {
                     rules.addTransition(i,Cell.Transition.LIVE)

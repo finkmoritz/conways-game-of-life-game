@@ -137,19 +137,22 @@ class ConfigActivity : AppCompatActivity() {
         var rules = ConwayRules()
         var nNeighbours = 0
         for(spinner in spinners) {
-            when {
-                spinner.selectedItem.toString() == "Live" -> rules.addTransition(nNeighbours++, Cell.Transition.LIVE)
-                spinner.selectedItem.toString() == "Persist" -> rules.addTransition(nNeighbours++, Cell.Transition.PERSIST)
-                else -> rules.addTransition(nNeighbours++, Cell.Transition.DIE)
+            if(rows[nNeighbours].visibility == View.VISIBLE) {
+                when {
+                    spinner.selectedItem.toString() == "Live" -> rules.addTransition(nNeighbours++, Cell.Transition.LIVE)
+                    spinner.selectedItem.toString() == "Persist" -> rules.addTransition(nNeighbours++, Cell.Transition.PERSIST)
+                    else -> rules.addTransition(nNeighbours++, Cell.Transition.DIE)
+                }
+            } else {
+                break
             }
         }
         return rules
     }
 
     fun setSpinnersFromRules(rules: Rules) {
-        val nNeighbours = rules.getMaxNumberOfNeighbours()
         for(i in 0 until rows.size) {
-            if(i<=nNeighbours) {
+            if(rules.getTransition(i) != null) {
                 rows[i].visibility = View.VISIBLE
                 setSpinnerFromTransition(spinners[i],rules.getTransition(i))
             } else {
