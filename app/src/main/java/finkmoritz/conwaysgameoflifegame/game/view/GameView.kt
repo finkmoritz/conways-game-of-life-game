@@ -11,7 +11,7 @@ import finkmoritz.conwaysgameoflifegame.board.HexagonalBoard
 import finkmoritz.conwaysgameoflifegame.board.QuadrangularBoard
 import finkmoritz.conwaysgameoflifegame.board.TriangularBoard
 import finkmoritz.conwaysgameoflifegame.cell.Cell
-import finkmoritz.conwaysgameoflifegame.config.ConfigDO
+import finkmoritz.conwaysgameoflifegame.config.ConfigSerializable
 
 
 class GameView @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -21,7 +21,7 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
     private val BORDER_RADIUS: Float = 20.0f
     private val BACKGROUND_COLOR = Color.BLACK
 
-    private lateinit var initialConfig: ConfigDO
+    private lateinit var initialConfig: ConfigSerializable
     private lateinit var board: Board
 
     private val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -54,10 +54,10 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
     constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
             : this(context, attrs, defStyleAttr, 0)
 
-    fun initialize(config: ConfigDO) {
+    fun initialize(config: ConfigSerializable) {
         initialConfig = config
 
-        when(Board.topologyFromString(config.boardTopology)) {
+        when(config.boardTopology) {
             Board.Topology.TRIANGULAR -> board = TriangularBoard(config.boardSize,config.boardSize)
             Board.Topology.HEXAGONAL -> board = HexagonalBoard(config.boardSize,config.boardSize)
             else -> board = QuadrangularBoard(config.boardSize,config.boardSize)

@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import finkmoritz.conwaysgameoflifegame.board.Board
 import finkmoritz.conwaysgameoflifegame.cell.Cell
 import finkmoritz.conwaysgameoflifegame.config.*
+import finkmoritz.conwaysgameoflifegame.persistence.AppSharedPreferences
 import finkmoritz.conwaysgameoflifegame.rules.ConwayRules
 import finkmoritz.conwaysgameoflifegame.rules.Rules
 import kotlinx.android.synthetic.main.activity_config.*
@@ -105,22 +107,25 @@ class ConfigActivity : AppCompatActivity() {
     }
 
     private fun loadConfig() {
-        val config = ConfigManagerImpl(this).load()
-        selectValue(cellsSpinner,config.boardTopology)
+        var config = AppSharedPreferences(this).load("config",ConfigSerializable()) as ConfigSerializable?
+        if(config == null) {
+            config = ConfigSerializable()
+        }
+        selectValue(cellsSpinner,Board.topologyToString(config.boardTopology))
         selectValue(rulesSpinner,config.rules)
-        setSpinnersFromRules(Rules.stringToRules(config.customRules))
+        setSpinnersFromRules(config.customRules)
         sizeSeekBar.progress = config.boardSize
         voidSeekBar.progress = config.voidPercentage
     }
 
-    private fun saveConfig() : ConfigDO {
-        val config = ConfigDO()
-        config.boardTopology = cellsSpinner.selectedItem.toString()
+    private fun saveConfig() : ConfigSerializable {
+        val config = ConfigSerializable()
+        config.boardTopology = Board.topologyFromString(cellsSpinner.selectedItem as String)
         config.rules = rulesSpinner.selectedItem.toString()
-        config.customRules = Rules.rulesToString(getRulesFromSpinners(spinners))
+        config.customRules = getRulesFromSpinners(spinners)
         config.boardSize = sizeSeekBar.progress
         config.voidPercentage = voidSeekBar.progress
-        ConfigManagerImpl(this).save(config)
+        AppSharedPreferences(this).save("config",config)
         return config
     }
 
@@ -133,7 +138,7 @@ class ConfigActivity : AppCompatActivity() {
         }
     }
 
-    private fun getRulesFromSpinners(spinners: List<Spinner>) : Rules {
+    private fun getRulesFromSpinners(spinners: List<Spinner>) : ConwayRules {
         var rules = ConwayRules()
         var nNeighbours = 0
         for(spinner in spinners) {

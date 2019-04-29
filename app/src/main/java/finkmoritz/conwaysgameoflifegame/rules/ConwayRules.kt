@@ -1,9 +1,12 @@
 package finkmoritz.conwaysgameoflifegame.rules
 
+import com.google.gson.annotations.SerializedName
 import finkmoritz.conwaysgameoflifegame.cell.Cell
+import java.io.Serializable
 
-open class ConwayRules : Rules {
+open class ConwayRules : Rules, Serializable {
 
+    @SerializedName("nbrToTransition")
     private var nbrToTransition = HashMap<Int,Cell.Transition>()
 
     override fun addTransition(nNeighbours: Int, transition: Cell.Transition) {

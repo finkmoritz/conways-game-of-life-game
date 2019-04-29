@@ -7,7 +7,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
-import finkmoritz.conwaysgameoflifegame.config.ConfigDO
+import finkmoritz.conwaysgameoflifegame.config.ConfigSerializable
 import finkmoritz.conwaysgameoflifegame.game.view.GameView
 
 class GameActivity : AppCompatActivity() {
@@ -16,7 +16,7 @@ class GameActivity : AppCompatActivity() {
     lateinit var menuLayout : View
     lateinit var gameLayout : View
     lateinit var menuButton : Button
-    lateinit var initialConfig : ConfigDO
+    lateinit var initialConfig : ConfigSerializable
     lateinit var gameView : GameView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +34,7 @@ class GameActivity : AppCompatActivity() {
 
         gameView = findViewById(R.id.gameView)
 
-        initialConfig = intent.getSerializableExtra("initialConfig") as ConfigDO
+        initialConfig = intent.getSerializableExtra("initialConfig") as ConfigSerializable
 
         gameView.initialize(initialConfig)
     }
