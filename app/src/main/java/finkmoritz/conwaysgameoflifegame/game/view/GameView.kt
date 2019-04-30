@@ -14,6 +14,8 @@ import finkmoritz.conwaysgameoflifegame.cell.Cell
 import finkmoritz.conwaysgameoflifegame.config.ConfigSerializable
 
 
+
+
 class GameView @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
     : View(context, attrs, defStyleAttr, defStyleRes) {
@@ -36,14 +38,14 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
         setBackgroundColor(BACKGROUND_COLOR)
         pathEffect = CornerPathEffect(BORDER_RADIUS)
     }
-    private val deadPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    private val boardPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
         color = Color.WHITE
         setBackgroundColor(BACKGROUND_COLOR)
         pathEffect = CornerPathEffect(BORDER_RADIUS)
     }
-    private val alivePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        style = Paint.Style.FILL
+    private val cellPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.FILL_AND_STROKE
         color = Color.rgb(50,50,225)
         setBackgroundColor(BACKGROUND_COLOR)
         pathEffect = CornerPathEffect(BORDER_RADIUS)
@@ -76,9 +78,9 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
                     for(y in 0 until board.height()) {
                         var paint = voidPaint
                         if(board.getCellState(x,y) == Cell.State.DEAD) {
-                            paint = deadPaint
+                            paint = boardPaint
                         } else if(board.getCellState(x,y) == Cell.State.ALIVE) {
-                            paint = alivePaint
+                            paint = cellPaint
                         }
                         var path = Path()
                         if(x%2 != y%2) { //upward
@@ -104,14 +106,16 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
                 val cellHeight : Float = height.toFloat()/board.height()
                 for(x in 0 until board.width()) {
                     for(y in 0 until board.height()) {
-                        var paint = voidPaint
-                        if(board.getCellState(x,y) == Cell.State.DEAD) {
-                            paint = deadPaint
-                        } else if(board.getCellState(x,y) == Cell.State.ALIVE) {
-                            paint = alivePaint
-                        }
                         val cellRect = RectF(x*cellWidth,y*cellHeight,(x+1)*cellWidth,(y+1)*cellHeight)
-                        drawRect(cellRect,paint)
+                        if(board.getCellState(x,y) == Cell.State.DEAD) {
+                            drawRect(cellRect,boardPaint)
+                        } else if(board.getCellState(x,y) == Cell.State.ALIVE) {
+                            drawRect(cellRect,boardPaint)
+                            cellPaint.apply { shader = RadialGradient((x+0.5f)*cellWidth, (y+0.5f)*cellHeight, 0.25f*cellWidth, Color.rgb(50,50,225), Color.argb(122,50,50,225), Shader.TileMode.MIRROR) }
+                            drawCircle((x+0.5f)*cellWidth,(y+0.5f)*cellHeight,0.25f*cellWidth, cellPaint)
+                        } else {
+                            drawRect(cellRect,voidPaint)
+                        }
                         drawRect(cellRect,borderPaint)
                     }
                 }
