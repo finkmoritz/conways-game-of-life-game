@@ -3,10 +3,9 @@ package finkmoritz.conwaysgameoflifegame.config
 import android.view.View
 import android.widget.AdapterView
 import finkmoritz.conwaysgameoflifegame.ConfigActivity
+import finkmoritz.conwaysgameoflifegame.board.Board
+import finkmoritz.conwaysgameoflifegame.rules.ConwayRulesFactory
 import finkmoritz.conwaysgameoflifegame.rules.Rules
-import finkmoritz.conwaysgameoflifegame.rules.StandardHexagonalRules
-import finkmoritz.conwaysgameoflifegame.rules.StandardQuadrangularRules
-import finkmoritz.conwaysgameoflifegame.rules.StandardTriangularRules
 
 open class OnCellsOrRulesSelectedListener(val configActivity: ConfigActivity)
     : AdapterView.OnItemSelectedListener {
@@ -19,9 +18,9 @@ open class OnCellsOrRulesSelectedListener(val configActivity: ConfigActivity)
         val selectedCells = cellsSpinner.selectedItem.toString()
         val rules : Rules
         when (selectedCells) {
-            "Triangular" -> rules = StandardTriangularRules()
-            "Hexagonal" -> rules = StandardHexagonalRules()
-            else -> rules = StandardQuadrangularRules()
+            "Triangular" -> rules = ConwayRulesFactory().createStandardConwayRules(Board.Topology.TRIANGULAR)
+            "Hexagonal" -> rules = ConwayRulesFactory().createStandardConwayRules(Board.Topology.HEXAGONAL)
+            else -> rules = ConwayRulesFactory().createStandardConwayRules(Board.Topology.QUADRANGULAR)
         }
         configActivity.setSpinnersFromRules(rules)
     }

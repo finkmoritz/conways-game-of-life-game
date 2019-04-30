@@ -9,7 +9,7 @@ open class ConwayRules : Rules, Serializable {
     @SerializedName("nbrToTransition")
     private var nbrToTransition = HashMap<Int,Cell.Transition>()
 
-    override fun addTransition(nNeighbours: Int, transition: Cell.Transition) {
+    override fun setTransition(nNeighbours: Int, transition: Cell.Transition) {
         nbrToTransition[nNeighbours] = transition
     }
 
@@ -19,8 +19,6 @@ open class ConwayRules : Rules, Serializable {
         val transition = nbrToTransition[nNeighbours]
         return transform(oldState,transition)
     }
-
-    override fun getMaxNumberOfNeighbours() = 0
 
     private fun transform(oldState: Cell.State, transition: Cell.Transition?): Cell.State {
         var newState = oldState

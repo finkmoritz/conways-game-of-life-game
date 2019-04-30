@@ -144,9 +144,9 @@ class ConfigActivity : AppCompatActivity() {
         for(spinner in spinners) {
             if(rows[nNeighbours].visibility == View.VISIBLE) {
                 when {
-                    spinner.selectedItem.toString() == "Live" -> rules.addTransition(nNeighbours++, Cell.Transition.LIVE)
-                    spinner.selectedItem.toString() == "Persist" -> rules.addTransition(nNeighbours++, Cell.Transition.PERSIST)
-                    else -> rules.addTransition(nNeighbours++, Cell.Transition.DIE)
+                    spinner.selectedItem.toString() == "Live" -> rules.setTransition(nNeighbours++, Cell.Transition.LIVE)
+                    spinner.selectedItem.toString() == "Persist" -> rules.setTransition(nNeighbours++, Cell.Transition.PERSIST)
+                    else -> rules.setTransition(nNeighbours++, Cell.Transition.DIE)
                 }
             } else {
                 break

@@ -3,7 +3,7 @@ package finkmoritz.conwaysgameoflifegame.config
 import com.google.gson.annotations.SerializedName
 import finkmoritz.conwaysgameoflifegame.board.Board
 import finkmoritz.conwaysgameoflifegame.rules.ConwayRules
-import finkmoritz.conwaysgameoflifegame.rules.StandardQuadrangularRules
+import finkmoritz.conwaysgameoflifegame.rules.ConwayRulesFactory
 import java.io.Serializable
 
 class ConfigSerializable(
@@ -12,7 +12,7 @@ class ConfigSerializable(
         @SerializedName("rules")
         var rules: String = "Standard",
         @SerializedName("customRules")
-        var customRules: ConwayRules = StandardQuadrangularRules(),
+        var customRules: ConwayRules = ConwayRulesFactory().createStandardConwayRules(Board.Topology.QUADRANGULAR),
         @SerializedName("boardSize")
         var boardSize: Int = 10,
         @SerializedName("voidPercentage")
