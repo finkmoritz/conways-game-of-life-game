@@ -37,7 +37,7 @@ abstract class AbstractBoard(protected val width : Int, private val height : Int
     override fun getSize(): Int = width()*height()
 
     override fun randomize(voidPercentage: Int) {
-        val random = Random(0)
+        val random = Random()
         val living = 0.5
         val livePercentage = living * (100-voidPercentage)
         for(cell in cells) {
