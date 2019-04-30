@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".ConfigActivity">
 
@@ -105,9 +107,9 @@
                         android:id="@+id/neighbours0_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="false"
                         android:entries="@array/result_array"
-                        android:popupBackground="@color/colorAccent"
-                        android:clickable="false"/>
+                        android:popupBackground="@color/colorAccent" />
                 </TableRow>
 
                 <TableRow
@@ -323,25 +325,18 @@
     </ScrollView>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.05"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/configBackButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="startMainActivity"
-            android:text="@string/back_text" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="startGameActivity"
-            android:text="@string/play_text" />
+            android:text="@string/play_text"
+            app:backgroundTint="@color/colorSelected" />
     </LinearLayout>
 </LinearLayout>

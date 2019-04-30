@@ -3,7 +3,10 @@ package finkmoritz.conwaysgameoflifegame
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.*
+import android.widget.SeekBar
+import android.widget.Spinner
+import android.widget.TableRow
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import finkmoritz.conwaysgameoflifegame.board.Board
 import finkmoritz.conwaysgameoflifegame.cell.Cell
@@ -11,7 +14,6 @@ import finkmoritz.conwaysgameoflifegame.config.*
 import finkmoritz.conwaysgameoflifegame.persistence.AppSharedPreferences
 import finkmoritz.conwaysgameoflifegame.rules.ConwayRules
 import finkmoritz.conwaysgameoflifegame.rules.Rules
-import kotlinx.android.synthetic.main.activity_config.*
 
 
 class ConfigActivity : AppCompatActivity() {
@@ -26,7 +28,6 @@ class ConfigActivity : AppCompatActivity() {
     private lateinit var voidSeekBar : SeekBar
     private lateinit var onCellsSelectedListener : OnCellsSelectedListener
     private lateinit var onRulesSelectedListener : OnRulesSelectedListener
-    private lateinit var backButton : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +56,10 @@ class ConfigActivity : AppCompatActivity() {
                 findViewById(R.id.neighbours7_spinner),
                 findViewById(R.id.neighbours8_spinner))
 
+        for(spinner in spinners) {
+            spinner.onItemSelectedListener = OnSpinnerSelectedListener()
+        }
+
         onCellsSelectedListener = OnCellsSelectedListener(this)
         onRulesSelectedListener = OnRulesSelectedListener(this)
 
@@ -68,8 +73,6 @@ class ConfigActivity : AppCompatActivity() {
         voidLabel = findViewById(R.id.voidLabel)
         voidSeekBar = findViewById(R.id.voidSeekBar)
         voidSeekBar.setOnSeekBarChangeListener(OnVoidSeekBarChangeListener(this))
-
-        backButton = findViewById(R.id.configBackButton)
 
         enableAllSpinners(spinners, false)
     }
@@ -85,10 +88,10 @@ class ConfigActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        startMainActivity(configBackButton)
+        startMainActivity()
     }
 
-    fun startMainActivity(view: View) {
+    fun startMainActivity() {
         val intent = Intent(this, MainActivity::class.java).apply {}
         startActivity(intent)
     }
