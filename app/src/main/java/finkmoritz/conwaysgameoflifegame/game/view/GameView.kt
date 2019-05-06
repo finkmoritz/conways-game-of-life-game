@@ -12,8 +12,7 @@ import finkmoritz.conwaysgameoflifegame.board.QuadrangularBoard
 import finkmoritz.conwaysgameoflifegame.board.TriangularBoard
 import finkmoritz.conwaysgameoflifegame.cell.Cell
 import finkmoritz.conwaysgameoflifegame.config.ConfigSerializable
-
-
+import finkmoritz.conwaysgameoflifegame.game.view.path.TriangularPath
 
 
 class GameView @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -70,54 +69,68 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
     }
 
     override fun onDraw(canvas: Canvas) {
-        canvas.apply {
-            if(board is TriangularBoard) {
-                val cellWidth : Float = 2*width.toFloat()/(board.width()+1)
-                val cellHeight : Float = height.toFloat()/board.height()
-                for(x in 0 until board.width()) {
-                    for(y in 0 until board.height()) {
-                        var paint = voidPaint
-                        if(board.getCellState(x,y) == Cell.State.DEAD) {
-                            paint = boardPaint
-                        } else if(board.getCellState(x,y) == Cell.State.ALIVE) {
-                            paint = cellPaint
-                        }
-                        var path = Path()
-                        if(x%2 != y%2) { //upward
-                            path.moveTo(x/2.0f*cellWidth,(y+1)*cellHeight)
-                            path.lineTo((x/2.0f+0.5f)*cellWidth,y*cellHeight)
-                            path.lineTo((x/2.0f+1)*cellWidth,(y+1)*cellHeight)
-                            path.lineTo(x/2.0f*cellWidth,(y+1)*cellHeight)
-                        } else { //downward
-                            path.moveTo(x/2.0f*cellWidth,y*cellHeight)
-                            path.lineTo((x/2.0f+1)*cellWidth,y*cellHeight)
-                            path.lineTo((x/2.0f+0.5f)*cellWidth,(y+1)*cellHeight)
-                            path.lineTo(x/2.0f*cellWidth,y*cellHeight)
-                        }
-                        path.close()
-                        drawPath(path,paint)
-                        drawPath(path,borderPaint)
-                    }
-                }
-            } else if(board is HexagonalBoard) {
+        if(board is TriangularBoard) {
+            drawTriangularBoard(canvas)
+        } else if(board is HexagonalBoard) {
+            drawHexagonalBoard(canvas)
+        } else {
+            drawQuadrangularBoard(canvas)
+        }
+    }
 
-            } else {
-                val cellWidth : Float = width.toFloat()/board.width()
-                val cellHeight : Float = height.toFloat()/board.height()
-                for(x in 0 until board.width()) {
-                    for(y in 0 until board.height()) {
-                        val cellRect = RectF(x*cellWidth,y*cellHeight,(x+1)*cellWidth,(y+1)*cellHeight)
-                        if(board.getCellState(x,y) == Cell.State.DEAD) {
-                            drawRect(cellRect,boardPaint)
-                        } else if(board.getCellState(x,y) == Cell.State.ALIVE) {
-                            drawRect(cellRect,boardPaint)
-                            cellPaint.apply { shader = RadialGradient((x+0.5f)*cellWidth, (y+0.5f)*cellHeight, 0.25f*cellWidth, Color.rgb(50,50,225), Color.argb(122,50,50,225), Shader.TileMode.MIRROR) }
-                            drawCircle((x+0.5f)*cellWidth,(y+0.5f)*cellHeight,0.25f*cellWidth, cellPaint)
-                        } else {
-                            drawRect(cellRect,voidPaint)
-                        }
-                        drawRect(cellRect,borderPaint)
+    private fun drawTriangularBoard(canvas: Canvas) {
+        canvas.apply {
+            val cellWidth : Float = 2*width.toFloat()/(board.width()+1)
+            val cellHeight : Float = height.toFloat()/board.height()
+            for(x in 0 until board.width()) {
+                for(y in 0 until board.height()) {
+                    var offsetY : Float
+                    var path: TriangularPath
+                    if(x%2 != y%2) { //upward
+                        path = TriangularPath(x/2.0f*cellWidth,y*cellHeight,cellWidth,cellHeight,true)
+                        offsetY = 0.1f
+                    } else { //downward
+                        path = TriangularPath(x/2.0f*cellWidth,y*cellHeight,cellWidth,cellHeight,false)
+                        offsetY = -0.1f
                     }
+                    if(board.getCellState(x,y) == Cell.State.DEAD) {
+                        drawPath(path,boardPaint)
+                    } else if(board.getCellState(x,y) == Cell.State.ALIVE) {
+                        drawPath(path,boardPaint)
+                        cellPaint.apply { shader = RadialGradient((x/2.0f+0.25f)*cellWidth, (y+0.25f+offsetY)*cellHeight, 0.3f*cellWidth, Color.rgb(50,50,225), Color.argb(180,50,50,225), Shader.TileMode.MIRROR) }
+                        drawCircle((x/2.0f+0.5f)*cellWidth,(y+0.5f+offsetY)*cellHeight,0.15f*cellWidth, cellPaint)
+                    } else {
+                        drawPath(path,voidPaint)
+                    }
+                    drawPath(path,borderPaint)
+                }
+            }
+        }
+    }
+
+    private fun drawHexagonalBoard(canvas: Canvas) {
+        canvas.apply {
+            //TODO
+        }
+    }
+
+    private fun drawQuadrangularBoard(canvas: Canvas) {
+        canvas.apply {
+            val cellWidth : Float = width.toFloat()/board.width()
+            val cellHeight : Float = height.toFloat()/board.height()
+            for(x in 0 until board.width()) {
+                for(y in 0 until board.height()) {
+                    val cellRect = RectF(x*cellWidth,y*cellHeight,(x+1)*cellWidth,(y+1)*cellHeight)
+                    if(board.getCellState(x,y) == Cell.State.DEAD) {
+                        drawRect(cellRect,boardPaint)
+                    } else if(board.getCellState(x,y) == Cell.State.ALIVE) {
+                        drawRect(cellRect,boardPaint)
+                        cellPaint.apply { shader = RadialGradient((x+0.25f)*cellWidth, (y+0.25f)*cellHeight, 0.5f*cellWidth, Color.rgb(50,50,225), Color.argb(122,50,50,225), Shader.TileMode.MIRROR) }
+                        drawCircle((x+0.5f)*cellWidth,(y+0.5f)*cellHeight,0.25f*cellWidth, cellPaint)
+                    } else {
+                        drawRect(cellRect,voidPaint)
+                    }
+                    drawRect(cellRect,borderPaint)
                 }
             }
         }
