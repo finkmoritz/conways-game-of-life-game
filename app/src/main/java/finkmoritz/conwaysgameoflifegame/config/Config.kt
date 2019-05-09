@@ -6,7 +6,7 @@ import finkmoritz.conwaysgameoflifegame.rules.ConwayRules
 import finkmoritz.conwaysgameoflifegame.rules.ConwayRulesFactory
 import java.io.Serializable
 
-class ConfigSerializable(
+class Config(
         @SerializedName("boardTopology")
         var boardTopology: Board.Topology = Board.Topology.QUADRANGULAR,
         @SerializedName("rules")

@@ -110,9 +110,9 @@ class ConfigActivity : AppCompatActivity() {
     }
 
     private fun loadConfig() {
-        var config = AppSharedPreferences(this).load("config",ConfigSerializable()) as ConfigSerializable?
+        var config = AppSharedPreferences(this).load("config",Config()) as Config?
         if(config == null) {
-            config = ConfigSerializable()
+            config = Config()
         }
         selectValue(cellsSpinner,Board.topologyToString(config.boardTopology))
         selectValue(rulesSpinner,config.rules)
@@ -121,8 +121,8 @@ class ConfigActivity : AppCompatActivity() {
         voidSeekBar.progress = config.voidPercentage
     }
 
-    private fun saveConfig() : ConfigSerializable {
-        val config = ConfigSerializable()
+    private fun saveConfig() : Config {
+        val config = Config()
         config.boardTopology = Board.topologyFromString(cellsSpinner.selectedItem as String)
         config.rules = rulesSpinner.selectedItem.toString()
         config.customRules = getRulesFromSpinners(spinners)

@@ -15,17 +15,16 @@ abstract class AbstractBoard(protected val width : Int, private val height : Int
         }
     }
 
-    override fun iterate(rules: Rules): Board {
-        val newBoard = this.clone()
+    override fun iterate(rules: Rules) {
+        val boardClone = this.clone() as AbstractBoard
         for(x in 0 until width()) {
             for(y in 0 until height()) {
-                val cell = getCell(x,y)
-                val nNeighbours = getNeighbours(cell).size
+                val cell = boardClone.getCell(x,y)
+                val nNeighbours = boardClone.getNumberOfLivingNeighbours(cell)
                 val newState = rules.getNewState(nNeighbours,cell.getState())
-                newBoard.setCellState(x,y,newState)
+                this.setCellState(x,y,newState)
             }
         }
-        return newBoard
     }
 
     override fun getAllCells(): List<Cell> = cells
@@ -52,5 +51,10 @@ abstract class AbstractBoard(protected val width : Int, private val height : Int
                 }
             }
         }
+    }
+
+    protected fun getNumberOfLivingNeighbours(cell: Cell): Int {
+        val neighbours = getNeighbours(cell)
+        return neighbours.count { it.getState() == Cell.State.ALIVE }
     }
 }

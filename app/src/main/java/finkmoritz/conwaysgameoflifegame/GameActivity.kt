@@ -7,7 +7,8 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
-import finkmoritz.conwaysgameoflifegame.config.ConfigSerializable
+import finkmoritz.conwaysgameoflifegame.config.Config
+import finkmoritz.conwaysgameoflifegame.game.Game
 import finkmoritz.conwaysgameoflifegame.game.view.GameView
 
 class GameActivity : AppCompatActivity() {
@@ -16,8 +17,9 @@ class GameActivity : AppCompatActivity() {
     lateinit var menuLayout : View
     lateinit var gameLayout : View
     lateinit var menuButton : Button
-    lateinit var initialConfig : ConfigSerializable
+    lateinit var initialConfig : Config
     lateinit var gameView : GameView
+    lateinit var game: Game
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +36,10 @@ class GameActivity : AppCompatActivity() {
 
         gameView = findViewById(R.id.gameView)
 
-        initialConfig = intent.getSerializableExtra("initialConfig") as ConfigSerializable
+        initialConfig = intent.getSerializableExtra("initialConfig") as Config
 
-        gameView.initialize(initialConfig)
+        game = Game(initialConfig)
+        gameView.initialize(game.board)
     }
 
     override fun onBackPressed() {
@@ -64,5 +67,11 @@ class GameActivity : AppCompatActivity() {
 
     private fun hideGame() {
         gameLayout.visibility = View.INVISIBLE
+    }
+
+    fun nextTurn(view: View) {
+        game.nextTurn()
+        gameView.clearSelection()
+        gameView.redraw()
     }
 }

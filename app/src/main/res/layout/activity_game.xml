@@ -95,8 +95,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:backgroundTint="@color/colorSelected"
-                android:text="@string/nextTurnText" />
+                android:onClick="nextTurn"
+                android:text="@string/nextTurnText"
+                app:backgroundTint="@color/colorSelected" />
         </LinearLayout>
 
     </RelativeLayout>

@@ -8,10 +8,8 @@ import android.util.AttributeSet
 import android.view.View
 import finkmoritz.conwaysgameoflifegame.board.Board
 import finkmoritz.conwaysgameoflifegame.board.HexagonalBoard
-import finkmoritz.conwaysgameoflifegame.board.QuadrangularBoard
 import finkmoritz.conwaysgameoflifegame.board.TriangularBoard
 import finkmoritz.conwaysgameoflifegame.cell.Cell
-import finkmoritz.conwaysgameoflifegame.config.ConfigSerializable
 import finkmoritz.conwaysgameoflifegame.game.view.paint.CellPaint
 import finkmoritz.conwaysgameoflifegame.game.view.path.TriangularPath
 
@@ -20,7 +18,6 @@ class GameView @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
     : View(context, attrs, defStyleAttr, defStyleRes) {
 
-    private val borderRadius: Float = 20.0f
     private val backgroundColor = Color.BLACK
     private val boardColor = Color.WHITE
     private val selectedColor = Color.LTGRAY
@@ -30,23 +27,14 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
 
     private var selectedCells = mutableListOf<Point>()
 
-    private lateinit var initialConfig: ConfigSerializable
-    private lateinit var board: Board
-
+    lateinit var board: Board
 
     @JvmOverloads
     constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
             : this(context, attrs, defStyleAttr, 0)
 
-    fun initialize(config: ConfigSerializable) {
-        initialConfig = config
-
-        when(config.boardTopology) {
-            Board.Topology.TRIANGULAR -> board = TriangularBoard(config.boardSize,config.boardSize)
-            Board.Topology.HEXAGONAL -> board = HexagonalBoard(config.boardSize,config.boardSize)
-            else -> board = QuadrangularBoard(config.boardSize,config.boardSize)
-        }
-        board.randomize(config.voidPercentage)
+    fun initialize(board: Board) {
+        this.board = board
 
         setBackgroundColor(backgroundColor)
         redraw()
@@ -54,7 +42,7 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
         setOnTouchListener(GameViewOnTouchListener(this))
     }
 
-    private fun redraw() = invalidate()
+    fun redraw() = invalidate()
 
     fun onTouch(x: Float, y: Float) {
         val selectedCell = boardCoordFromTouchCoord(x,y)
@@ -72,6 +60,8 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
             redraw()
         }
     }
+
+    fun clearSelection() = selectedCells.clear()
 
     private fun toggleCellState(coord: Point) {
         when(board.getCellState(coord.x,coord.y)) {
@@ -162,7 +152,7 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
 
     private fun boardCoordFromTouchCoord(touchX: Float, touchY: Float): Point {
         var boardCoord: Point
-        when(initialConfig.boardTopology) {
+        when(board.getTopology()) {
             Board.Topology.TRIANGULAR -> boardCoord = triangularBoardCoordFromTouchCoord(touchX,touchY)
             Board.Topology.HEXAGONAL -> boardCoord = hexagonalBoardCoordFromTouchCoord(touchX,touchY)
             else -> boardCoord = quadrangularBoardCoordFromTouchCoord(touchX,touchY)
@@ -172,7 +162,7 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
 
     private fun triangularBoardCoordFromTouchCoord(touchX: Float, touchY: Float): Point {
         var boardCoord = Point(0,0)
-        val boardSize = initialConfig.boardSize.toFloat()
+        val boardSize = board.width().toFloat()
         //TODO
         return boardCoord
     }
@@ -185,7 +175,7 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
 
     private fun quadrangularBoardCoordFromTouchCoord(touchX: Float, touchY: Float): Point {
         var boardCoord = Point(0,0)
-        val boardSize = initialConfig.boardSize.toFloat()
+        val boardSize = board.width().toFloat()
         boardCoord.x = (touchX/width.toFloat()*boardSize).toInt()
         boardCoord.y = (touchY/height.toFloat()*boardSize).toInt()
         return boardCoord
