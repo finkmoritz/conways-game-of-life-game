@@ -22,7 +22,6 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
     private val boardColor = Color.WHITE
     private val selectedColor = Color.LTGRAY
     private val cellColor = Color.rgb(50,50,225)
-    private val cellColorTransparent = Color.argb(122,50,50,225)
     private val borderPaint = CellPaint(Paint.Style.STROKE,backgroundColor)
 
     private var selectedCells = mutableListOf<Point>()
@@ -106,7 +105,9 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
                     }
                     drawPath(path,paint)
                     if(cellState == Cell.State.ALIVE) {
+                        val cellColor = board.getCell(x,y).getColor()
                         val cellPaint = CellPaint(Paint.Style.FILL_AND_STROKE,cellColor)
+                        val cellColorTransparent = Color.argb(122,Color.red(cellColor)/2,Color.green(cellColor)/2,Color.blue(cellColor)/2)
                         cellPaint.apply { shader = RadialGradient((x/2.0f+0.25f)*cellWidth, (y+0.25f+offsetY)*cellHeight, 0.3f*cellWidth, cellColor, cellColorTransparent, Shader.TileMode.MIRROR) }
                         drawCircle((x/2.0f+0.5f)*cellWidth,(y+0.5f+offsetY)*cellHeight,0.15f*cellWidth, cellPaint)
                     }
@@ -140,7 +141,9 @@ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleR
                     }
                     drawRect(cellRect,paint)
                     if(board.getCellState(x,y) == Cell.State.ALIVE) {
+                        val cellColor = board.getCell(x,y).getColor()
                         var cellPaint = CellPaint(Paint.Style.FILL_AND_STROKE,cellColor)
+                        val cellColorTransparent = Color.argb(122,Color.red(cellColor)/2,Color.green(cellColor)/2,Color.blue(cellColor)/2)
                         cellPaint.apply { shader = RadialGradient((x+0.25f)*cellWidth, (y+0.25f)*cellHeight, 0.5f*cellWidth, cellColor, cellColorTransparent, Shader.TileMode.MIRROR) }
                         drawCircle((x+0.5f)*cellWidth,(y+0.5f)*cellHeight,0.25f*cellWidth, cellPaint)
                     }

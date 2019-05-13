@@ -324,6 +324,35 @@
                         android:progress="10" />
                 </TableRow>
             </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <finkmoritz.conwaysgameoflifegame.config.ColorSelectView
+                        android:id="@+id/colorSelectView0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/activity_horizontal_margin"
+                        android:minHeight="@dimen/activity_horizontal_margin" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <finkmoritz.conwaysgameoflifegame.config.ColorSelectView
+                        android:id="@+id/colorSelectView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/colorSelectSize"
+                        android:minHeight="@dimen/colorSelectSize" />
+                </TableRow>
+            </TableLayout>
         </LinearLayout>
     </ScrollView>
 

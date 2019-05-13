@@ -16,5 +16,7 @@ class Config(
         @SerializedName("boardSize")
         var boardSize: Int = 10,
         @SerializedName("voidPercentage")
-        var voidPercentage: Int = 10
+        var voidPercentage: Int = 10,
+        @SerializedName("playerColors")
+        var playerColors: List<Int> = mutableListOf()
 ) : Serializable

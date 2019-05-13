@@ -1,5 +1,6 @@
 package finkmoritz.conwaysgameoflifegame.board
 
+import android.util.Log
 import finkmoritz.conwaysgameoflifegame.cell.Cell
 import finkmoritz.conwaysgameoflifegame.cell.SimpleCell
 import finkmoritz.conwaysgameoflifegame.rules.Rules
@@ -35,7 +36,8 @@ abstract class AbstractBoard(protected val width : Int, private val height : Int
     override fun height() = height
     override fun getSize(): Int = width()*height()
 
-    override fun randomize(voidPercentage: Int) {
+    override fun randomize(voidPercentage: Int, colors: List<Int>) {
+        Log.d("randomize","$colors")
         val random = Random()
         val living = 0.5
         val livePercentage = living * (100-voidPercentage)
@@ -46,6 +48,11 @@ abstract class AbstractBoard(protected val width : Int, private val height : Int
             } else {
                 if(r < voidPercentage+livePercentage) {
                     cell.setState(Cell.State.ALIVE)
+                    if(Random().nextDouble() < 0.5) { //TODO
+                        cell.setColor(SimpleCell.colors[colors[0]])
+                    } else {
+                        cell.setColor(SimpleCell.colors[colors[1]])
+                    }
                 } else {
                     cell.setState(Cell.State.DEAD)
                 }

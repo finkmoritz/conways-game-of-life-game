@@ -28,6 +28,7 @@ class ConfigActivity : AppCompatActivity() {
     private lateinit var voidSeekBar : SeekBar
     private lateinit var onCellsSelectedListener : OnCellsSelectedListener
     private lateinit var onRulesSelectedListener : OnRulesSelectedListener
+    private lateinit var colorSelectViews: List<ColorSelectView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +75,14 @@ class ConfigActivity : AppCompatActivity() {
         voidSeekBar = findViewById(R.id.voidSeekBar)
         voidSeekBar.setOnSeekBarChangeListener(OnVoidSeekBarChangeListener(this))
 
+        colorSelectViews = listOf(findViewById(R.id.colorSelectView0),
+                findViewById(R.id.colorSelectView1))
+
+        var colorIndex = 1
+        for(colorSelectView in colorSelectViews) {
+            colorSelectView.initialize(colorIndex++)
+        }
+
         enableAllSpinners(spinners, false)
     }
 
@@ -119,6 +128,12 @@ class ConfigActivity : AppCompatActivity() {
         setSpinnersFromRules(config.customRules)
         sizeSeekBar.progress = config.boardSize
         voidSeekBar.progress = config.voidPercentage
+        var playerColorIndex = 0
+        for(playerColor in config.playerColors) {
+            colorSelectViews[playerColorIndex].currentColorIndex = playerColor
+            colorSelectViews[playerColorIndex].redraw()
+            playerColorIndex++
+        }
     }
 
     private fun saveConfig() : Config {
@@ -128,6 +143,11 @@ class ConfigActivity : AppCompatActivity() {
         config.customRules = getRulesFromSpinners(spinners)
         config.boardSize = sizeSeekBar.progress
         config.voidPercentage = voidSeekBar.progress
+        var playerColors = mutableListOf<Int>()
+        for(colorSelectView in colorSelectViews) {
+            playerColors.add(colorSelectView.currentColorIndex)
+        }
+        config.playerColors = playerColors
         AppSharedPreferences(this).save("config",config)
         return config
     }

@@ -16,4 +16,6 @@ interface Cell {
     fun setState(state: State)
     fun getState() : State
 
+    fun setColor(color: Int)
+    fun getColor(): Int
 }
