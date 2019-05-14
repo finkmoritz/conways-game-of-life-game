@@ -17,7 +17,7 @@ class Game(var config: Config) {
             Board.Topology.HEXAGONAL -> board = HexagonalBoard(config.boardSize,config.boardSize)
             else -> board = QuadrangularBoard(config.boardSize,config.boardSize)
         }
-        board.randomize(config.voidPercentage,config.playerColors)
+        board.randomize(0.01f*config.voidPercentage,config.playerColors)
     }
 
     fun nextTurn() {

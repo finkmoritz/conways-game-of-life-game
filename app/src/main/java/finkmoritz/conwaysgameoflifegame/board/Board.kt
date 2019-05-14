@@ -15,7 +15,7 @@ interface Board {
     fun getSize() : Int
     fun getTopology() : Topology
     fun clone() : Board
-    fun randomize(voidPercentage : Int, colors: List<Int>)
+    fun randomize(voidPercentage : Float, colors: List<Int>)
 
     enum class Topology {
         TRIANGULAR,

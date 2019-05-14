@@ -1,6 +1,5 @@
 package finkmoritz.conwaysgameoflifegame.board
 
-import android.util.Log
 import finkmoritz.conwaysgameoflifegame.cell.Cell
 import finkmoritz.conwaysgameoflifegame.cell.SimpleCell
 import finkmoritz.conwaysgameoflifegame.rules.Rules
@@ -36,28 +35,40 @@ abstract class AbstractBoard(protected val width : Int, private val height : Int
     override fun height() = height
     override fun getSize(): Int = width()*height()
 
-    override fun randomize(voidPercentage: Int, colors: List<Int>) {
-        Log.d("randomize","$colors")
+    override fun randomize(voidPercentage: Float, colors: List<Int>) {
+        val positions = IntArray(cells.size, {it})
+        var maxIndex = positions.size-1
         val random = Random()
-        val living = 0.5
-        val livePercentage = living * (100-voidPercentage)
-        for(cell in cells) {
-            val r = random.nextInt(100)
-            if(r < voidPercentage) {
-                cell.setState(Cell.State.VOID)
-            } else {
-                if(r < voidPercentage+livePercentage) {
-                    cell.setState(Cell.State.ALIVE)
-                    if(Random().nextDouble() < 0.5) { //TODO
-                        cell.setColor(SimpleCell.colors[colors[0]])
-                    } else {
-                        cell.setColor(SimpleCell.colors[colors[1]])
-                    }
-                } else {
-                    cell.setState(Cell.State.DEAD)
-                }
+
+        val nVoid = (voidPercentage*cells.size).toInt()
+        for(i in 0 until nVoid) {
+            val randPos = random.nextInt(maxIndex+1)
+            cells.get(positions[randPos]).setState(Cell.State.VOID)
+            positions.swap(randPos,maxIndex)
+            maxIndex--
+        }
+
+        val nAlive = 0.5*(cells.size-nVoid)
+        val nAlivePerPlayer = (nAlive/colors.size).toInt()
+        for(color in colors) {
+            for(i in 0 until nAlivePerPlayer) {
+                val randPos = random.nextInt(maxIndex+1)
+                cells.get(positions[randPos]).setState(Cell.State.ALIVE)
+                cells.get(positions[randPos]).setColor(SimpleCell.colors[color])
+                positions.swap(randPos,maxIndex)
+                maxIndex--
             }
         }
+
+        for(i in 0..maxIndex) {
+            cells.get(positions[i]).setState(Cell.State.DEAD)
+        }
+    }
+
+    private fun IntArray.swap(i: Int, j: Int) {
+        val tmp = this[i]
+        this[i] = this[j]
+        this[j] = tmp
     }
 
     protected fun getNumberOfLivingNeighbours(cell: Cell): Int {
